@@ -1,6 +1,5 @@
-# bookstore
+前端 vue + element ui 构建的网上书店大作业
 
-> A Vue.js project
 
 ## Build Setup
 
