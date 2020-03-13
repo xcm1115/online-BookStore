@@ -1,29 +1,12 @@
-前端 vue + element ui 构建的网上书店大作业
+# 网上书店系统
 
+>前端 vue + element ui  后端 PHP 构建的网上书店系统
 
-## Build Setup
+>包括前台用户界面和后台管理系统
 
-``` bash
-# install dependencies
-npm install
+### 部分截图
+#### 登录界面
+![](http://120.55.87.80/img/bookstore截图/login.png)
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+#### 书籍分类界面
+![](http://120.55.87.80/img/bookstore截图/category.png)
