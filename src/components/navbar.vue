@@ -1,31 +1,42 @@
 <template>
 	<div>
 		<el-row class="nav" type="flex" align="middle">
-			<el-col :span="2" class="box"><img class="image" src="../../static/bible.png"></img></el-col>
-			<el-col :span="2" class="box">BookStore</el-col>
+			<el-col :span="4" class="box"><img class="image" src="../../static/logo.png" @click="toHome()"></img></el-col>
 			<el-col :span="10">
-				<el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal"
-				 active-text-color="#4F6E9D">
+				<el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
 					<el-menu-item index="/home">首页</el-menu-item>
-					<!-- <el-menu-item index="2">用户列表</el-menu-item> -->
-					<!-- <el-menu-item index="3">商品列表</el-menu-item> -->
-					<!-- <el-menu-item index="1">查询商品</el-menu-item> -->
-					<el-menu-item index="/category">商品分类</el-menu-item>
-					<el-menu-item index="2">新货上架</el-menu-item>
-					<el-menu-item index="3">特价市场</el-menu-item>
-					<!-- <el-menu-item index="4">缺货登记</el-menu-item> -->
+					<el-menu-item index="/category">书籍分类</el-menu-item>
+					<el-menu-item index="/newProduct">新货上架</el-menu-item>
+					<el-menu-item index="/onSale">特价市场</el-menu-item>
 				</el-menu>
 			</el-col>
 			<el-col :span="4" class="box">
-				<el-input class="myInput" placeholder="搜索书籍" active-text-color="#4F6E9D" size="small" prefix-icon="el-icon-search"
+				<el-input class="myInput1 myInput2" placeholder="搜索书籍" active-text-color="#4F6E9D" size="small" prefix-icon="el-icon-search"
 				 v-model="input" @focus="InputFocus" @blur="InputBlur" @confirm="toSearch()">
 				</el-input>
 			</el-col>
-			<el-col :span="1" :offset="2" class="box"><el-button class="el-icon-user" @click="toUser()" circle></el-button></el-col>
+
+			<el-col :span="1" :offset="2" class="box">
+				<div v-if="this.$cookies.get('status') == 'unlogin' || !this.$cookies.get('status')">
+					<el-button class="myButton el-icon-user" @click="toLogin()" circle></el-button>
+				</div>
+
+				<div v-if="this.$cookies.get('status') == 'logined'">
+					<el-dropdown>
+						<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+						<el-dropdown-menu slot="dropdown">
+							<el-dropdown-item icon="el-icon-setting"><label>个人中心</label></el-dropdown-item>
+							<el-dropdown-item icon="el-icon-circle-close"><label @click="exit()">退出登录</label></el-dropdown-item>
+						</el-dropdown-menu>
+					</el-dropdown>
+				</div>
+			</el-col>
+
 			<el-col :span="3">
-				<el-menu class="el-menu-demo" mode="horizontal" text-color="#4F6E9D">
-					<el-menu-item>购物车</el-menu-item>
-					<el-menu-item>订单</el-menu-item>
+				<!-- <div>{{this.ID}}</div> -->
+				<el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
+					<el-menu-item index="/shopping">购物车</el-menu-item>
+					<el-menu-item index="/order">订单</el-menu-item>
 				</el-menu>
 			</el-col>
 		</el-row>
@@ -40,11 +51,19 @@
 			}
 		},
 		methods: {
-			// handleSelect(key, keyPath) {
-			// 	console.log(key, keyPath)
-			// }
-			toUser() {
-				this.$router.push({ path:'/login'  })
+			toLogin() {
+				this.$router.push({
+					path: '/login'
+				})
+			},
+			toHome() {
+				this.$router.push({
+					path: '/home'
+				})
+			},
+			exit() {
+				this.$cookies.set("status","unlogin");
+				location.reload();
 			}
 		}
 	}
@@ -61,16 +80,21 @@
 		position: fixed;
 		z-index: 999;
 	}
-	
+
 	.el-menu.el-menu--horizontal {
 		border-bottom: none;
 	}
-	
+
 	.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
 	.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
 		color: #4F6E9D;
 	}
 	
+	.el-dropdown-menu__item:focus,
+	.el-dropdown-menu__item:not(.is-disabled):hover {
+		color: #4F6E9D;
+	}
+
 	.box {
 		background-color: #FFFFFF;
 		text-align: center;
@@ -83,20 +107,32 @@
 	}
 
 	.image {
-		width: 35px;
-		height: 35px;
+        margin-left: 20px;
+		width: 200px;
 	}
-	
+
 	.el-icon-user {
 		float: right;
 	}
-	
+
 	/* 自定义类+内置类 */
-	.myInput input.el-input__inner:focus {
-	    border-color: #4F6E9D;
+	.myInput1 input.el-input__inner:focus {
+		border-color: #4F6E9D;
+	}
+
+	.myInput2 input.el-input__inner {
+		border-radius: 25px;
 	}
 	
-	.el-input__inner {
-		border-radius: 25px;
+	.myButton:focus,.myButton:hover {
+		color: #FFFFFF;
+		border-color: #7E9DCA;
+		background-color: #7E9DCA;
+	}
+	
+	.myButton:active {
+		color: #FFFFFF;
+		border-color: #7E9DCA;
+		outline: 0;
 	}
 </style>

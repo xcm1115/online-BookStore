@@ -9,12 +9,12 @@
 			<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0" class="demo-ruleForm">
 				<div class="myInput username1">
 					<el-form-item prop="tel">
-						<el-input prefix-icon="el-icon-user" v-model="ruleForm.tel" placeholder="请输入手机号" clearable="true"></el-input>
+						<el-input class="myInput1 myInput2" prefix-icon="el-icon-user" v-model="ruleForm.tel" placeholder="请输入手机号" clearable="true"></el-input>
 					</el-form-item>
 				</div>
 				<div class="myInput password">
 					<el-form-item prop="pass">
-						<el-input prefix-icon="el-icon-magic-stick" placeholder="请输入密码" v-model="ruleForm.pass" show-password></el-input>
+						<el-input class="myInput1 myInput2" prefix-icon="el-icon-magic-stick" placeholder="请输入密码" v-model="ruleForm.pass" show-password></el-input>
 					</el-form-item>
 				</div>
 
@@ -102,6 +102,10 @@
 									type: 'success',
 									center: true
 								});
+								
+								this.$cookies.set("status","logined");
+								this.$cookies.set("ID",this.ruleForm.tel);
+								
 								this.$router.push({
 									path: '/home'
 								});
@@ -183,6 +187,18 @@
 		background-color: #4F6E9D;
 		color: #FFFFFF;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+	}
+	
+	.logBtn:focus,.logBtn:hover {
+		color: #FFFFFF;
+		border-color: #7E9DCA;
+		background-color: #7E9DCA;
+	}
+	
+	.logBtn:active {
+		color: #FFFFFF;
+		border-color: #7E9DCA;
+		outline: 0;
 	}
 
 	.link {

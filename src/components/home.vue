@@ -1,19 +1,8 @@
 <template>
 	<div class="top">
-		<el-carousel :interval="4000" type="card" height="250px">
-		    <el-carousel-item>
-				<img class="myImg" src="../../static/rotation/1.jpg"></img>
-		    </el-carousel-item>
-			<el-carousel-item>
-				<img class="myImg" src="../../static/rotation/2.jpg"></img>
-			</el-carousel-item>
-			<el-carousel-item>
-				<img class="myImg" src="../../static/rotation/3.jpg"></img>
-			</el-carousel-item>
-			<el-carousel-item>
-				<img class="myImg" src="../../static/rotation/4.jpg"></img>
-			</el-carousel-item>
-		  </el-carousel>
+        <h1 class="homeTitle">BookStore</h1>
+        <p class="content">我希望政通人和，使大家能安安静静坐下来，想一点事，读一点书，写一点文章。</p>
+        <div style="margin-top: 30px;"><img style="width: 800px;" src="/static/background1.png"></div>
 	</div>
 </template>
 
@@ -33,6 +22,7 @@
 <style>
 	.top {
 		margin-top: 30px;
+        text-align: center;
 	}
 	
 	.myImg {
@@ -40,6 +30,23 @@
 		/* height: 250px; */
 		padding: 0 auto;
 	}
+
+    .homeTitle {
+        color: #333333;
+        font-size: 40px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .content {
+        width: 400px;
+        color: #333333;
+        margin: 0 auto;
+        font-size: 18px;
+        text-align: center;
+        line-height: 35px;
+    }
 	
 	.el-carousel__item h3 {
 	    color: #475669;
