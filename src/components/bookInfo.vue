@@ -53,7 +53,6 @@
 				axios.post(address,{
 					ID: this.$route.query.ID
 				}).then(res => {
-					//这里是ES6的写法，get请求的地址
 					this.bookInfo = res.data; //获取数据  
 					console.log('success');
 					console.log(this.bookInfo);
