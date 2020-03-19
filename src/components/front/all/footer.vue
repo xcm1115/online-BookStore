@@ -1,12 +1,8 @@
 <template>
     <div class="footer">
-		<el-divider></el-divider>
-        <el-row class="border" type="flex" align="middle">
-			<el-col :span="12">
+        <el-row class="border" type="flex">
+			<el-col :span="24">
 				<div class="contact">© 联系方式：OnlineBookStore@163.com</div>
-			</el-col>
-			<el-col :span="12">
-				<div class="name">Online-BookStore</div>
 			</el-col>
         </el-row>
     </div>
@@ -20,22 +16,17 @@
 	
 <style scope>
 	.footer {
-		margin-top: 50px;
+        background-color: #4F6E9D;
 	}
 	
     .border {
-		line-height: 40px;
+		line-height: 100px;
 		margin: 0 auto;
     }
 	
 	.contact {
-		color: #909399;
+		color: #FFFFFF;
 		margin-left: 30px;
-	}
-	
-	.name {
-		color: #909399;
-		float: right;
-		margin-right: 30px;
+        text-align: center;
 	}
 </style>

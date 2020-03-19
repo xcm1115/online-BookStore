@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<el-row class="nav" type="flex" align="middle">
-			<el-col :span="4" class="box"><img class="image" src="../../static/logo.png" @click="toHome()"></img></el-col>
+			<el-col :span="4" class="box"><img class="image" src="/static/logo.png" @click="toHome()"></el-col>
 			<el-col :span="10">
 				<el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
-					<el-menu-item index="/home">首页</el-menu-item>
+					<el-menu-item index="/">首页</el-menu-item>
 					<el-menu-item index="/category">书籍分类</el-menu-item>
 					<el-menu-item index="/newProduct">新货上架</el-menu-item>
 					<el-menu-item index="/onSale">特价市场</el-menu-item>
@@ -25,7 +25,7 @@
 					<el-dropdown>
 						<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
 						<el-dropdown-menu slot="dropdown">
-							<el-dropdown-item icon="el-icon-setting"><label>个人中心</label></el-dropdown-item>
+							<el-dropdown-item icon="el-icon-setting"><label @click="setting()">个人中心</label></el-dropdown-item>
 							<el-dropdown-item icon="el-icon-circle-close"><label @click="exit()">退出登录</label></el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
@@ -58,13 +58,18 @@
 			},
 			toHome() {
 				this.$router.push({
-					path: '/home'
+					path: '/'
+				})
+            },
+            setting() {
+				this.$router.push({
+					path: '/setting'
 				})
 			},
 			exit() {
 				this.$cookies.set("status","unlogin");
 				location.reload();
-			}
+            }
 		}
 	}
 </script>
@@ -135,4 +140,8 @@
 		border-color: #7E9DCA;
 		outline: 0;
 	}
+
+    .el-avatar {
+        cursor: pointer;
+    }
 </style>

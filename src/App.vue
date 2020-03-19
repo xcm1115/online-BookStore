@@ -4,19 +4,19 @@
 			<navbar></navbar>
 		</el-header>
 		<router-view></router-view>
-		<!-- <myfooter></myfooter> -->
+		<myfooter></myfooter>
 	</el-container>
 </template>
 
 <script>
-    import navbar from './components/navbar.vue'
-	import myfooter from './components/footer.vue'
+    import navbar from './components/front/all/navbar.vue'
+	import myfooter from './components/front/all/footer.vue'
 	
     export default {
         name: "App",
         components: {
             navbar,
-			// myfooter
+			myfooter
         }
     };
 </script>

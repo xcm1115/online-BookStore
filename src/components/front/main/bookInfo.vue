@@ -1,7 +1,11 @@
 <template>
 	<div v-loading="loading" class="bookInfo">
 		<el-card class="box-card leftInfo">
-			<img style="height: 310px;" :src="'http://120.55.87.80/img/bookImg/' + this.bookInfo.img"></img>
+			<el-image style="height: 310px;" :src="'http://120.55.87.80/img/bookImg/' + this.bookInfo.img">
+                <div slot="placeholder" class="image-slot">
+                    加载中<span class="dot">...</span>
+                </div>
+            </el-image>
 			<div style="display: flex; margin-top: 20px; align-items: center;">
 				<div style="color: #606266;">推荐程度：</div>
 				<el-rate style="margin-top: 4px;" v-model="bookInfo.Commend" :colors="colors" disabled></el-rate>
@@ -34,7 +38,7 @@
 
 <script>
 	import axios from 'axios'
-	
+
 	export default {
 		data() {
 			return {
@@ -49,8 +53,8 @@
 		methods: {
 			getInfo() {
 				var address = 'http://120.55.87.80/server/BookStore/bookInfo.php';
-				
-				axios.post(address,{
+
+				axios.post(address, {
 					ID: this.$route.query.ID
 				}).then(res => {
 					this.bookInfo = res.data; //获取数据  
@@ -60,73 +64,76 @@
 				this.loading = false;
 			},
 			handleChange(value) {
-			    console.log(value);
+				console.log(value);
 			}
 		}
 	}
 </script>
 
-<style>
+<style scoped>
 	.bookInfo {
 		justify-content: center;
-		margin-top: 40px;
+		margin-top: 50px;
+        margin-bottom: 80px;
 		display: flex;
-	}	
-	
+	}
+
 	.leftInfo {
 		margin-left: 0;
 		height: 400px;
 	}
-	
+
 	.rightInfo {
 		width: 400px;
 		height: 400px;
 		margin-left: 150px;
 		padding-left: 30px;
 	}
-	
+
 	.bookName {
 		font-size: 23px;
 		font-weight: 600;
 	}
-	
+
 	.authorName {
 		margin-top: 20px;
 		color: #909399;
 	}
-	
+
 	.bookPrice {
 		color: #c00000;
 		font-size: 23px;
 		font-weight: 600;
 	}
-	
+
 	.buyButton1 {
 		width: 150px;
-		background-color: #C27C88;
+		background-color: #4F6E9D;
 		color: #FFFFFF;
 		outline: none;
-		border-color: #C27C88;
+		border-color: #4F6E9D;
 		border-radius: 25px;
 	}
-	
-	.buyButton1:focus,.buyButton1:hover {
-		background-color: #C29098;
-		border-color: #C29098;
+
+	.buyButton1:focus,
+	.buyButton1:hover {
+		background-color: #7e9dca;
+		border-color: #7e9dca;
 		color: #FFFFFF;
 		outline: none;
 	}
-	
+
 	.buyButton2 {
 		width: 150px;
 		outline: none;
 		border-radius: 25px;
-		color: #C27C88;
+		color: #4f6e9d;
 	}
-	
-	.buyButton2:focus,.buyButton2:hover {
-		background-color: #C27C88;
-		border-color: #C27C88;
+
+	.buyButton2:focus,
+	.buyButton2:hover {
+		background-color: #7e9dca;
+		border-color: #7e9dca;
 		color: #FFFFFF;
 		outline: none;
 	}

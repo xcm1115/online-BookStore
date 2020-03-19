@@ -1,13 +1,13 @@
 <template>
 	<el-row>
 		<el-col :span="12">
-			<img class="leftImg" src="../../static/left.jpg"></img>
+			<img class="leftImg" src="/static/left.jpg">
 		</el-col>
 
 		<el-col :span="12">
-			<div class="title"><img class="head" src="../../static/head2.gif"></img></div>
+			<div class="title"><img class="head" src="/static/head1.gif"></div>
 			<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0" class="demo-ruleForm">
-				<div class="myInput username2">
+				<div class="myInput username1">
 					<el-form-item prop="tel">
 						<el-input class="myInput1 myInput2" prefix-icon="el-icon-user" v-model="ruleForm.tel" placeholder="请输入手机号" clearable="true"></el-input>
 					</el-form-item>
@@ -17,20 +17,16 @@
 						<el-input class="myInput1 myInput2" prefix-icon="el-icon-magic-stick" placeholder="请输入密码" v-model="ruleForm.pass" show-password></el-input>
 					</el-form-item>
 				</div>
-				<div class="myInput password">
-					<el-form-item prop="checkPass">
-						<el-input class="myInput1 myInput2" prefix-icon="el-icon-magic-stick" placeholder="确认密码" v-model="ruleForm.checkPass" show-password></el-input>
-					</el-form-item>
-				</div>
 
 				<div class="login">
-					<el-form-item prop="checkPass">
-						<el-button class="logBtn" @click="submitForm('ruleForm')">注册</el-button>
+					<el-form-item>
+						<el-button class="logBtn" @click="submitForm('ruleForm')">登录</el-button>
 					</el-form-item>
 				</div>
 			</el-form>
 			<div class="link">
-				<el-link type="info" @click="toLog()">已有账号?去登录!</el-link>
+				<el-link style="margin-right: 50px;" type="info" @click="toReg()">没有账号?去注册!</el-link>
+                <el-link style="margin-left: 50px;" type="info" @click="toReg()">后台管理系统</el-link>
 			</div>
 		</el-col>
 	</el-row>
@@ -52,7 +48,7 @@
 				}
 			}
 			// <!--验证密码-->
-			let validatePass1 = (rule, value, callback) => {
+			let validatePass = (rule, value, callback) => {
 				if (value === "") {
 					callback(new Error(" "))
 				} else {
@@ -62,29 +58,15 @@
 					callback()
 				}
 			}
-			// <!--二次验证密码-->
-			let validatePass2 = (rule, value, callback) => {
-				if (value === "") {
-					callback(new Error(" "));
-				} else if (value !== this.ruleForm.pass) {
-					callback(new Error(" "));
-				} else {
-					callback();
-				}
-			}
+
 			return {
 				ruleForm: {
-					pass: "",
-					checkPass: "",
-					tel: "",
+					pass: '',
+					tel: '',
 				},
 				rules: {
 					pass: [{
-						validator: validatePass1,
-						trigger: 'change'
-					}],
-					checkPass: [{
-						validator: validatePass2,
+						validator: validatePass,
 						trigger: 'change'
 					}],
 					tel: [{
@@ -104,20 +86,20 @@
 					return false;
 				}
 			},
-			// <!--提交注册-->
+			// <!--提交登录-->
 			submitForm(formName) {
 				this.$refs[formName].validate(valid => {
 					if (valid) {
-						axios.post('http://120.55.87.80/server/BookStore/register.php', {
+						axios.post('http://120.55.87.80/server/BookStore/login.php', {
 							name: this.ruleForm.tel,
 							password: this.ruleForm.pass
 						}).then(response => { //用户名和密码将转为json传到后台接口              
 							let res = response.data; //用res承接返回后台的json文件(像使用数组那样)
 							if (res.status == '1') { //显示登录结果             
-								console.log('注册成功');
+								console.log('登录成功');
 								this.$message({
 									showClose: true,
-									message: '注册成功！',
+									message: '登录成功！',
 									type: 'success',
 									center: true
 								});
@@ -126,45 +108,35 @@
 								this.$cookies.set("ID",this.ruleForm.tel);
 								
 								this.$router.push({
-									path: '/home'
+									path: '/'
 								});
-							}
-							else if (res.status == '0') { //显示登录结果
-							 	console.log('账户名已被使用！');
-							 	this.$message({
-							 		showClose: true,
-							 		message: '账户名已被使用！',
-							 		type: 'error',
-							 		center: true
-							 	});
 							} else {
-								console.log('注册失败');
+								console.log('登录失败');
 								this.$message({
 									showClose: true,
-									message: '注册失败！请稍后重试！',
+									message: '登录失败！请稍后重试！',
 									type: 'error',
 									center: true
 								});
 							}
 						});
 					} else {
-						console.log("抱歉！注册失败！请稍后重试！");
+						console.log("账号或密码错误！");
 						return false;
 					}
 				})
 			},
-			toLog() {
+			toReg() {
 				this.$router.push({
-					path: '/login'
+					path: '/register'
 				})
 			}
 		}
 	}
 </script>
 
-<style scope>
+<style>
 	.logo {
-		/* margin-top: 20%; */
 		margin: 0 auto;
 	}
 
@@ -175,6 +147,7 @@
 	}
 
 	/* ------------------------------ */
+
 	.title {
 		margin-top: 5%;
 		width: 100%;
@@ -185,9 +158,9 @@
 		width: 350px;
 	}
 
-	.username2 {
+	.username1 {
 		width: 40%;
-		margin-top: 5%;
+		margin-top: 10%;
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -215,6 +188,18 @@
 		background-color: #4F6E9D;
 		color: #FFFFFF;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+	}
+	
+	.logBtn:focus,.logBtn:hover {
+		color: #FFFFFF;
+		border-color: #7E9DCA;
+		background-color: #7E9DCA;
+	}
+	
+	.logBtn:active {
+		color: #FFFFFF;
+		border-color: #7E9DCA;
+		outline: 0;
 	}
 
 	.link {
