@@ -1,22 +1,16 @@
 <template>
-	<el-container id="app">
-		<el-header>
-			<navbar></navbar>
-		</el-header>
-		<router-view></router-view>
-		<myfooter></myfooter>
-	</el-container>
+	<div id="app">
+		<navbar></navbar>
+	</div>
 </template>
 
 <script>
-    import navbar from './components/front/all/navbar.vue'
-	import myfooter from './components/front/all/footer.vue'
+    import navbar from './components/framework/navbar.vue'
 	
     export default {
         name: "App",
         components: {
-            navbar,
-			myfooter
+            navbar
         }
     };
 </script>

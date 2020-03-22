@@ -15,7 +15,7 @@
 
         <div class="recommend">
             <h1 class="recommendTitle">为您推荐</h1>
-            <div class="recLine" v-for="(books, index) in transAllBooks" :key="index">
+            <div class="recLine" v-for="(books, index) in transRecBooks" :key="index">
                 <div v-for="(book, index) in books" :key="index">
                     <el-card class="row" :body-style="{ padding: '0px' }">
                         <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
@@ -39,31 +39,31 @@
     export default {
         data() {
             return {
-                allBooks: [],
-                transAllBooks: [],
+                recBooks: [],
+                transRecBooks: [],
             }
         },
         created() {
-            var address = "http://120.55.87.80/server/BookStore/allBooks.php";
+            var address = "http://120.55.87.80/server/BookStore/recommend.php";
 
             axios.post(address).then(res => {
                 //这里是ES6的写法，get请求的地址
-                this.allBooks = res.data; //获取数据
+                this.recBooks = res.data; //获取数据
                 console.log("success");
-                console.log(this.allBooks);
-                this.transAll();
+                console.log(this.recBooks);
+                this.transRec();
             })
         },
         methods: {
-            transAll() {
+            transRec() {
                 var Arr = [];
-                for (var i = 0, idx = -1; i < this.allBooks.length; i++) {
+                for (var i = 0, idx = -1; i < this.recBooks.length; i++) {
                     i % 4 == 0 && idx++;
                     if (Object.prototype.toString.call(Arr[idx]) != "[object Array]")
                         Arr[idx] = [];
-                    Arr[idx].push(this.allBooks[i]);
+                    Arr[idx].push(this.recBooks[i]);
                 }
-                this.transAllBooks = Arr;
+                this.transRecBooks = Arr;
             },
             toInfo(e) {
                 this.$router.push({

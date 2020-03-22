@@ -1,16 +1,17 @@
 /* eslint-disable */
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '@/components/front/login/login'
-import register from '@/components/front/login/register'
-import setting from '@/components/front/main/setting'
-import index from '@/components/front/main/index'
-import category from '@/components/front/main/category'
-import bookInfo from '@/components/front/main/bookInfo'
-import newProduct from '@/components/front/main/newProduct'
-import onSale from '@/components/front/main/onSale'
-import shopping from '@/components/front/main/shopping'
-import order from '@/components/front/main/order'
+
+import login from '@/components/login/login'
+import register from '@/components/login/register'
+import setting from '@/components/main/setting'
+import index from '@/components/main/index'
+import category from '@/components/main/category'
+import bookInfo from '@/components/main/bookInfo'
+import newProduct from '@/components/main/newProduct'
+import onSale from '@/components/main/onSale'
+import shopping from '@/components/main/shopping'
+import order from '@/components/main/order'
 
 Vue.use(Router)
 
@@ -65,6 +66,6 @@ export default new Router({
 			path: '/order',
 			name: 'order',
 			component: order
-		},
+        }
 	]
 })

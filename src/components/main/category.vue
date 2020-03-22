@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="loading-area">
         <el-header>
             <el-row type="flex" justify="space-between" align="middle">
                 <el-col :span="8" class="title-left">
@@ -22,10 +22,11 @@
                 <el-card class="leftNav">
                     <img src="/static/cateNav.png" class="leftImg" />
                     <div class="navItem" :class="index == showCategoryIndex ? 'cur' : ''" v-for="(item, index) in navItems" :key="index" @click="showCategory(index)">{{ item }}</div>
+                    <div class="navItem" @click="toTop()"><i class="el-icon-arrow-up" style="font-size: 23px;"></i></div>
                 </el-card>
             </el-aside>
-            <el-main>
-                <el-row v-show="showCategoryIndex === 0" type="flex" justify="center" v-for="(books, index) in transAllBooks" :key="index">
+            <el-main v-loading.fullscreen.lock="loading" element-loading-background="#FFFFFF">
+                <el-row v-show="showCategoryIndex == 0" type="flex" justify="center" v-for="(books, index) in transAllBooks" :key="index">
                     <el-col :span="3" :offset="index > 0 ? 1 : 0" v-for="(book, index) in books" :key="index">
                         <el-card class="row" :body-style="{ padding: '0px' }">
                             <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
@@ -47,7 +48,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row v-show="showCategoryIndex === 1" type="flex" justify="center" v-for="(books, index) in transPcBooks" :key="index">
+                <el-row v-show="showCategoryIndex == 1" type="flex" justify="center" v-for="(books, index) in transPcBooks" :key="index">
                     <el-col :span="3" :offset="index > 0 ? 1 : 0" v-for="(book, index) in books" :key="index">
                         <el-card class="row" :body-style="{ padding: '0px' }">
                             <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
@@ -69,7 +70,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row v-show="showCategoryIndex === 2" type="flex" justify="center" v-for="(books, index) in transEnBooks" :key="index">
+                <el-row v-show="showCategoryIndex == 2" type="flex" justify="center" v-for="(books, index) in transEnBooks" :key="index">
                     <el-col :span="3" :offset="index > 0 ? 1 : 0" v-for="(book, index) in books" :key="index">
                         <el-card class="row" :body-style="{ padding: '0px' }">
                             <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
@@ -91,7 +92,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row v-show="showCategoryIndex === 3" type="flex" justify="center" v-for="(books, index) in transOtherBooks" :key="index">
+                <el-row v-show="showCategoryIndex == 3" type="flex" justify="center" v-for="(books, index) in transOtherBooks" :key="index">
                     <el-col :span="3" :offset="index > 0 ? 1 : 0" v-for="(book, index) in books" :key="index">
                         <el-card class="row" :body-style="{ padding: '0px' }">
                             <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
@@ -172,6 +173,7 @@
                     console.log("success");
                     console.log(this.otherBooks);
                     this.transOther();
+                    this.loading = false;
                 })
         },
         methods: {
@@ -214,6 +216,10 @@
                     Arr3[idx].push(this.otherBooks[i]);
                 }
                 this.transOtherBooks = Arr3;
+            },
+            toTop() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
             },
             toInfo(e) {
                 this.$router.push({
@@ -278,8 +284,8 @@
     .leftNav {
         top: 50%;
         width: 150px;
-        height: 380px;
-        margin-top: -170px;
+        height: 450px;
+        margin-top: -180px;
         margin-left: 40px;
         position: fixed;
         border-radius: 15px;
