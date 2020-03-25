@@ -26,15 +26,17 @@
                 </el-card>
             </el-aside>
             <el-main v-loading.fullscreen.lock="loading" element-loading-background="#FFFFFF">
-                <el-row v-show="showCategoryIndex == 0" type="flex" justify="center" v-for="(books, index) in transAllBooks" :key="index">
-                    <el-col :span="3" :offset="index > 0 ? 1 : 0" v-for="(book, index) in books" :key="index">
-                        <el-card class="row" :body-style="{ padding: '0px' }">
-                            <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
-                            <el-link class="name" @click="toInfo(book)" :underline="false">
-                                <i class="el-icon-reading readIcon"></i>
-                                {{ book.Name }}
-                            </el-link>
-                            <div class="author">{{ book.Author }}</div>
+
+                <el-row>
+                    <el-card class="row" v-for="(book, index) in Books[showCategoryIndex].slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="index" :body-style="{ padding: '0px' }">
+                        <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
+                        <el-link class="name" @click="toInfo(book)" :underline="false">
+                            <i class="el-icon-reading readIcon"></i>
+                            {{ book.Name }}
+                        </el-link>
+                        <div class="author">{{ book.Author }}</div>
+
+                        <div style="position: absolute; bottom: 0;">
                             <el-row type="flex" align="middle">
                                 <el-col :span="12" class="price">¥ {{ book.Price }}</el-col>
                                 <el-col :span="12">
@@ -44,74 +46,13 @@
                                 </el-col>
                             </el-row>
                             <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
-                        </el-card>
-                    </el-col>
+                        </div>
+                    </el-card>
                 </el-row>
 
-                <el-row v-show="showCategoryIndex == 1" type="flex" justify="center" v-for="(books, index) in transPcBooks" :key="index">
-                    <el-col :span="3" :offset="index > 0 ? 1 : 0" v-for="(book, index) in books" :key="index">
-                        <el-card class="row" :body-style="{ padding: '0px' }">
-                            <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
-                            <el-link class="name" @click="toInfo(book)" :underline="false">
-                                <i class="el-icon-reading readIcon"></i>
-                                {{ book.Name }}
-                            </el-link>
-                            <div class="author">{{ book.Author }}</div>
-                            <el-row type="flex" align="middle">
-                                <el-col :span="12" class="price">¥ {{ book.Price }}</el-col>
-                                <el-col :span="12">
-                                    <button class="shop" @click="open()">
-                                        <i class="el-icon-shopping-bag-1 icon"></i>
-                                    </button>
-                                </el-col>
-                            </el-row>
-                            <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
-                        </el-card>
-                    </el-col>
-                </el-row>
-
-                <el-row v-show="showCategoryIndex == 2" type="flex" justify="center" v-for="(books, index) in transEnBooks" :key="index">
-                    <el-col :span="3" :offset="index > 0 ? 1 : 0" v-for="(book, index) in books" :key="index">
-                        <el-card class="row" :body-style="{ padding: '0px' }">
-                            <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
-                            <el-link class="name" @click="toInfo(book)" :underline="false">
-                                <i class="el-icon-reading readIcon"></i>
-                                {{ book.Name }}
-                            </el-link>
-                            <div class="author">{{ book.Author }}</div>
-                            <el-row type="flex" align="middle">
-                                <el-col :span="12" class="price">¥ {{ book.Price }}</el-col>
-                                <el-col :span="12">
-                                    <button class="shop" @click="open()">
-                                        <i class="el-icon-shopping-bag-1 icon"></i>
-                                    </button>
-                                </el-col>
-                            </el-row>
-                            <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
-                        </el-card>
-                    </el-col>
-                </el-row>
-
-                <el-row v-show="showCategoryIndex == 3" type="flex" justify="center" v-for="(books, index) in transOtherBooks" :key="index">
-                    <el-col :span="3" :offset="index > 0 ? 1 : 0" v-for="(book, index) in books" :key="index">
-                        <el-card class="row" :body-style="{ padding: '0px' }">
-                            <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
-                            <el-link class="name" @click="toInfo(book)" :underline="false">
-                                <i class="el-icon-reading readIcon"></i>
-                                {{ book.Name }}
-                            </el-link>
-                            <div class="author">{{ book.Author }}</div>
-                            <el-row type="flex" align="middle">
-                                <el-col :span="12" class="price">¥ {{ book.Price }}</el-col>
-                                <el-col :span="12">
-                                    <button class="shop" @click="open()">
-                                        <i class="el-icon-shopping-bag-1 icon"></i>
-                                    </button>
-                                </el-col>
-                            </el-row>
-                            <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
-                        </el-card>
-                    </el-col>
+                <el-row class="page">
+                    <el-pagination background @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pagesize" :total="Books[showCategoryIndex].length">
+                    </el-pagination>
                 </el-row>
             </el-main>
         </el-container>
@@ -130,92 +71,42 @@
                 searchText: "", //搜索关键字
                 showCategoryIndex: 0,
                 navItems: ["全部书籍", "计算机类", "英语类", "其他类"],
-                allBooks: [],
-                pcBooks: [],
-                enBooks: [],
-                otherBooks: [],
-                transAllBooks: [],
-                transPcBooks: [],
-                transEnBooks: [],
-                transOtherBooks: []
+                Books: [[]],
+                currentPage: 1,
+                pagesize: 20
             };
         },
         created() {
-            var address1 = "http://120.55.87.80/server/BookStore/allBooks.php";
-            var address2 = "http://120.55.87.80/server/BookStore/pcBooks.php";
-            var address3 = "http://120.55.87.80/server/BookStore/enBooks.php";
-            var address4 = "http://120.55.87.80/server/BookStore/otherBooks.php";
+            var address1 = "http://120.55.87.80/server/bookstore/allBooks.php";
+            var address2 = "http://120.55.87.80/server/bookstore/pcBooks.php";
+            var address3 = "http://120.55.87.80/server/bookstore/enBooks.php";
+            var address4 = "http://120.55.87.80/server/bookstore/otherBooks.php";
 
             axios.post(address1).then(res => {
-                    //这里是ES6的写法，get请求的地址
-                    this.allBooks = res.data; //获取数据
+                    this.Books[0] = res.data; //获取数据
                     console.log("success");
                     console.log(this.allBooks);
-                    this.transAll();
                 }),
                 axios.post(address2).then(res => {
-                    //这里是ES6的写法，get请求的地址
-                    this.pcBooks = res.data; //获取数据
+                    this.Books[1] = res.data; //获取数据
                     console.log("success");
                     console.log(this.pcBooks);
-                    this.transPc();
                 }),
                 axios.post(address3).then(res => {
-                    //这里是ES6的写法，get请求的地址
-                    this.enBooks = res.data; //获取数据
+                    this.Books[2] = res.data; //获取数据
                     console.log("success");
                     console.log(this.enBooks);
-                    this.transEn();
                 }),
                 axios.post(address4).then(res => {
-                    //这里是ES6的写法，get请求的地址
-                    this.otherBooks = res.data; //获取数据
+                    this.Books[3] = res.data; //获取数据
                     console.log("success");
                     console.log(this.otherBooks);
-                    this.transOther();
                     this.loading = false;
                 })
         },
         methods: {
-            transAll() {
-                var Arr = [];
-                for (var i = 0, idx = -1; i < this.allBooks.length; i++) {
-                    i % 6 == 0 && idx++;
-                    if (Object.prototype.toString.call(Arr[idx]) != "[object Array]")
-                        Arr[idx] = [];
-                    Arr[idx].push(this.allBooks[i]);
-                }
-                this.transAllBooks = Arr;
-            },
-            transPc() {
-                var Arr1 = [];
-                for (var i = 0, idx = -1; i < this.pcBooks.length; i++) {
-                    i % 6 == 0 && idx++;
-                    if (Object.prototype.toString.call(Arr1[idx]) != "[object Array]")
-                        Arr1[idx] = [];
-                    Arr1[idx].push(this.pcBooks[i]);
-                }
-                this.transPcBooks = Arr1;
-            },
-            transEn() {
-                var Arr2 = [];
-                for (var i = 0, idx = -1; i < this.enBooks.length; i++) {
-                    i % 6 == 0 && idx++;
-                    if (Object.prototype.toString.call(Arr2[idx]) != "[object Array]")
-                        Arr2[idx] = [];
-                    Arr2[idx].push(this.enBooks[i]);
-                }
-                this.transEnBooks = Arr2;
-            },
-            transOther() {
-                var Arr3 = [];
-                for (var i = 0, idx = -1; i < this.otherBooks.length; i++) {
-                    i % 6 == 0 && idx++;
-                    if (Object.prototype.toString.call(Arr3[idx]) != "[object Array]")
-                        Arr3[idx] = [];
-                    Arr3[idx].push(this.otherBooks[i]);
-                }
-                this.transOtherBooks = Arr3;
+            handleCurrentChange: function(currentPage) {
+                this.currentPage = currentPage
             },
             toTop() {
                 document.body.scrollTop = 0;
@@ -284,7 +175,7 @@
     .leftNav {
         top: 50%;
         width: 150px;
-        height: 450px;
+        height: 410px;
         margin-top: -180px;
         margin-left: 40px;
         position: fixed;
@@ -303,7 +194,7 @@
 
     .leftNav .navItem {
         text-align: center;
-        height: 70px;
+        height: 60px;
         cursor: pointer;
         color: #ffffff;
         cursor: pointer;
@@ -330,12 +221,18 @@
     .row {
         margin-top: 20px;
         margin-bottom: 20px;
+        width: 160px;
+        height: 400px;
+        margin-left: 30px;
+        margin-right: 30px;
+        float: right;
+        position: relative;
         /* border-radius: 15px; */
     }
 
     .img {
         width: 100%;
-        height: 100%;
+        height: 200px;
         display: block;
         cursor: pointer;
         transition: all 0.6s;
@@ -416,6 +313,11 @@
 
     .clearfix:after {
         clear: both;
+    }
+
+    .page {
+        margin-top: 30px;
+        text-align: center;
     }
 
     .pageBottom {

@@ -44,7 +44,7 @@
             }
         },
         created() {
-            var address = "http://120.55.87.80/server/BookStore/recommend.php";
+            var address = "http://120.55.87.80/server/bookstore/recommend.php";
 
             axios.post(address).then(res => {
                 //这里是ES6的写法，get请求的地址

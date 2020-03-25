@@ -1,7 +1,7 @@
 <template>
 	<el-row>
 		<el-col :span="12">
-			<img class="leftImg" src="/static/left.jpg">
+			<img class="loginImg" src="/static/left.jpg">
 		</el-col>
 
 		<el-col :span="12">
@@ -25,8 +25,7 @@
 				</div>
 			</el-form>
 			<div class="link">
-				<el-link style="margin-right: 50px;" type="info" @click="toReg()">没有账号?去注册!</el-link>
-                <el-link style="margin-left: 50px;" type="info" @click="toRear()">后台管理系统</el-link>
+				<el-link type="info" @click="toReg()">没有账号?去注册!</el-link>
 			</div>
 		</el-col>
 	</el-row>
@@ -90,8 +89,8 @@
 			submitForm(formName) {
 				this.$refs[formName].validate(valid => {
 					if (valid) {
-						axios.post('http://120.55.87.80/server/BookStore/login.php', {
-							name: this.ruleForm.tel,
+						axios.post('http://120.55.87.80/server/bookstore/login.php', {
+							username: this.ruleForm.tel,
 							password: this.ruleForm.pass
 						}).then(response => { //用户名和密码将转为json传到后台接口              
 							let res = response.data; //用res承接返回后台的json文件(像使用数组那样)
@@ -145,7 +144,7 @@
 		margin: 0 auto;
 	}
 
-	.leftImg {
+	.loginImg {
 		width: 700px;
 		margin: 0 auto;
 		float: right;

@@ -90,9 +90,9 @@
 <style scope>
     .nav {
         width: 100%;
-        margin-top: -10px;
-        margin-left: -28px;
-        margin-right: -28px;
+        top: 0;
+        left: 0;
+        right: 0;  
         background-color: #FFFFFF;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         position: fixed;
