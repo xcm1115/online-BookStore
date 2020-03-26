@@ -40,7 +40,10 @@ export default new Router({
 		{
 			path: '/category',
 			name: 'category',
-			component: category
+            component: category,
+            meta: {
+                keepAlive: true
+            }
 		},
 		{
 			path: '/onSale',
@@ -50,7 +53,10 @@ export default new Router({
 		{
 			path: '/bookInfo',
 			name: 'bookInfo',
-			component: bookInfo
+            component: bookInfo,
+            meta: {
+                keepAlive: true
+            }
 		},
 		{
 			path: '/newProduct',

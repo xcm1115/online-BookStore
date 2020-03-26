@@ -66,15 +66,22 @@
         data() {
             return {
                 loading: true,
+                scroll: 0, //第一步：定义初始滚动高度
                 activeIndex: "1",
                 bookPath: 1,
                 searchText: "", //搜索关键字
                 showCategoryIndex: 0,
                 navItems: ["全部书籍", "计算机类", "英语类", "其他类"],
-                Books: [[]],
+                Books: [
+                    []
+                ],
                 currentPage: 1,
                 pagesize: 20
             };
+        },
+        //第二步：mounted中的方法代表dom已经加载完毕
+        mounted: function() {
+            window.addEventListener('scroll', this.handleScroll);
         },
         created() {
             var address1 = "http://www.xiaoqw.online/server/bookstore/allBooks.php";
@@ -108,6 +115,10 @@
             handleCurrentChange: function(currentPage) {
                 this.currentPage = currentPage
             },
+            //第三步：用于存放页面函数
+            handleScroll() {
+                this.scroll = $(window).height() + $(document).scrollTop()
+            },
             toTop() {
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
@@ -138,6 +149,17 @@
                     })
                     .catch(() => {});
             }
+        },
+        //第四步：当再次进入（前进或者后退）时，只触发activated（注：只有在keep-alive加载时调用）
+        activated() {
+            if (this.scroll > 0) {
+                window.scrollTo(0, this.scroll);
+                window.addEventListener('scroll', this.handleScroll);
+            }
+        },
+        //第五步：deactivated 页面退出时关闭事件 防止其他页面出现问题
+        deactivated() {
+            window.removeEventListener('scroll', this.handleScroll);
         }
     };
 </script>
