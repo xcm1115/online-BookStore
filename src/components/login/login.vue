@@ -1,11 +1,11 @@
 <template>
 	<el-row>
 		<el-col :span="12">
-			<img class="loginImg" src="/static/left.jpg">
+			<img class="loginImg" src="../../../static/left.jpg">
 		</el-col>
 
 		<el-col :span="12">
-			<div class="title"><img class="head" src="/static/head1.gif"></div>
+			<div class="title"><img class="head" src="../../../static/head1.gif"></div>
 			<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0" class="demo-ruleForm">
 				<div class="myInput username1">
 					<el-form-item prop="tel">
@@ -89,7 +89,7 @@
 			submitForm(formName) {
 				this.$refs[formName].validate(valid => {
 					if (valid) {
-						axios.post('http://120.55.87.80/server/bookstore/login.php', {
+						axios.post('http://www.xiaoqw.online/server/bookstore/login.php', {
 							username: this.ruleForm.tel,
 							password: this.ruleForm.pass
 						}).then(response => { //用户名和密码将转为json传到后台接口              

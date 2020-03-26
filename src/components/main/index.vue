@@ -7,8 +7,8 @@
                 <el-button class="startBtn" @click="toCate()">Get Stated</el-button>
             </el-aside>
             <el-main>
-                <div class="indexImg">
-                    <el-image src="/static/background1.png"></el-image>
+                <div>
+                    <img class="indexImg" src="../../../static/background.png">
                 </div>
             </el-main>
         </el-container>
@@ -17,16 +17,17 @@
             <h1 class="recommendTitle">为您推荐</h1>
             <div class="recLine" v-for="(books, index) in transRecBooks" :key="index">
                 <div v-for="(book, index) in books" :key="index">
-                    <el-card class="row" :body-style="{ padding: '0px' }">
-                        <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
-                        <div>
+                    <!-- <el-popover width="100" placement="right" trigger="hover"> -->
+
+                        <el-card slot="reference" class="card" :body-style="{ padding: '0px' }">
+                            <el-image class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/img/bookImg/' + book.img"></el-image>
                             <el-link class="name" @click="toInfo(book)" :underline="false">
                                 <i class="el-icon-reading readIcon"></i>
                                 {{ book.Name }}
                             </el-link>
                             <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
-                        </div> 
-                    </el-card>
+                        </el-card>
+                    <!-- </el-popover> -->
                 </div>
             </div>
         </div>
@@ -44,7 +45,7 @@
             }
         },
         created() {
-            var address = "http://120.55.87.80/server/bookstore/recommend.php";
+            var address = "http://www.xiaoqw.online/server/bookstore/recommend.php";
 
             axios.post(address).then(res => {
                 //这里是ES6的写法，get请求的地址
@@ -82,7 +83,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     .homeTitle {
         width: 400px;
         color: #333333;
@@ -107,29 +108,30 @@
     }
 
     .startBtn {
-		width: 150px;
-		height: 40px;
+        width: 150px;
+        height: 40px;
         margin-left: 150px;
-        margin-top: 50px;
-		border-radius: 25px;
-		border: none;
-		outline: none;
-		background-color: #4F6E9D;
-		color: #FFFFFF;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-	}
-	
-	.startBtn:focus,.startBtn:hover {
-		color: #FFFFFF;
-		border-color: #7E9DCA;
-		background-color: #7E9DCA;
-	}
-	
-	.startBtn:active {
-		color: #FFFFFF;
-		border-color: #7E9DCA;
-		outline: 0;
-	}
+        margin-top: 80px;
+        border-radius: 25px;
+        border: none;
+        outline: none;
+        background-color: #4F6E9D;
+        color: #FFFFFF;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    }
+
+    .startBtn:focus,
+    .startBtn:hover {
+        color: #FFFFFF;
+        border-color: #7E9DCA;
+        background-color: #7E9DCA;
+    }
+
+    .startBtn:active {
+        color: #FFFFFF;
+        border-color: #7E9DCA;
+        outline: 0;
+    }
 
     .recommend {
         margin-top: 30px;
@@ -152,7 +154,7 @@
         display: flex;
     }
 
-    .recommend .recLine .row {
+    .recommend .recLine .card {
         width: 200px;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -162,7 +164,7 @@
         position: relative;
     }
 
-    .recommend .recLine .row .img {
+    .recommend .recLine .card .img {
         width: 80%;
         height: 80%;
         display: block;
@@ -171,11 +173,17 @@
         padding-top: 20px;
     }
 
-    .recommend .recLine .row .name {
+    .recommend .recLine .card .name {
         padding-top: 14px;
         padding-left: 20px;
         padding-right: 20px;
+        padding-bottom: 14px;
         font-size: 16px;
+    }
+
+    .recommend .recLine .card .rate {
+        text-align: center;
+        padding: 0 10px 14px 10px;
     }
 
     .el-link.el-link--default {

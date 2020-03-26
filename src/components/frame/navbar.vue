@@ -2,7 +2,7 @@
     <div>
         <el-header>
             <el-row class="nav" type="flex" align="middle">
-                <el-col :span="4" class="box"><img class="image" src="/static/logo.png" @click="toHome()"></el-col>
+                <el-col :span="4" class="box"><img class="image" src="../../../static/logo.png" @click="toHome()"></el-col>
                 <el-col :span="10">
                     <el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
                         <el-menu-item index="/">首页</el-menu-item>
@@ -87,7 +87,7 @@
     }
 </script>
 
-<style scope>
+<style>
     .nav {
         width: 100%;
         top: 0;
@@ -118,6 +118,7 @@
         text-align: center;
         color: #4F6E9D;
         font-size: 20px;
+        cursor: pointer;
     }
 
     .el-menu-demo {

@@ -20,7 +20,7 @@
         <el-container>
             <el-aside width="220px">
                 <el-card class="leftNav">
-                    <img src="/static/cateNav.png" class="leftImg" />
+                    <img src="../../../static/cateNav.png" class="leftImg" />
                     <div class="navItem" :class="index == showCategoryIndex ? 'cur' : ''" v-for="(item, index) in navItems" :key="index" @click="showCategory(index)">{{ item }}</div>
                     <div class="navItem" @click="toTop()"><i class="el-icon-arrow-up" style="font-size: 23px;"></i></div>
                 </el-card>
@@ -29,7 +29,7 @@
 
                 <el-row>
                     <el-card class="row" v-for="(book, index) in Books[showCategoryIndex].slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="index" :body-style="{ padding: '0px' }">
-                        <el-image class="img" @click="toInfo(book)" :src="'http://120.55.87.80/img/bookImg/' + book.img"></el-image>
+                        <el-image class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/img/bookImg/' + book.img"></el-image>
                         <el-link class="name" @click="toInfo(book)" :underline="false">
                             <i class="el-icon-reading readIcon"></i>
                             {{ book.Name }}
@@ -77,10 +77,10 @@
             };
         },
         created() {
-            var address1 = "http://120.55.87.80/server/bookstore/allBooks.php";
-            var address2 = "http://120.55.87.80/server/bookstore/pcBooks.php";
-            var address3 = "http://120.55.87.80/server/bookstore/enBooks.php";
-            var address4 = "http://120.55.87.80/server/bookstore/otherBooks.php";
+            var address1 = "http://www.xiaoqw.online/server/bookstore/allBooks.php";
+            var address2 = "http://www.xiaoqw.online/server/bookstore/pcBooks.php";
+            var address3 = "http://www.xiaoqw.online/server/bookstore/enBooks.php";
+            var address4 = "http://www.xiaoqw.online/server/bookstore/otherBooks.php";
 
             axios.post(address1).then(res => {
                     this.Books[0] = res.data; //获取数据

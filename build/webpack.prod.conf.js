@@ -55,7 +55,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
-      cssProcessorOptions: config.build.productionSourceMap
+    cssProcessorOptions: config.build.productionSourceMap
         ? {safe: true, map: {inline: false}}
         : {safe: true}
     }),
@@ -67,6 +67,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ? 'index.html'
         : config.build.index,
       template: 'index.html',
+      favicon: path.resolve('./favicon.ico'),
       inject: true,
       minify: {
         removeComments: true,
