@@ -1,7 +1,18 @@
 <template>
     <div>
         <el-container>
-            <el-aside width="50%">
+            <div style="display: flex;">
+                <div>
+                    <h1 class="homeTitle">smallFrog 书店</h1>
+                    <p class="content">我希望政通人和，使大家能安安静静坐下来，想一点事，读一点书，写一点文章。</p>
+                    <el-button class="startBtn" @click="toCate()">Get Stated</el-button>
+                </div>
+                <div>
+                    <img class="indexImg" src="../../../static/background.png">
+                </div>
+            </div>
+            
+            <!-- <el-aside width="50%">
                 <h1 class="homeTitle">smallFrog 书店</h1>
                 <p class="content">我希望政通人和，使大家能安安静静坐下来，想一点事，读一点书，写一点文章。</p>
                 <el-button class="startBtn" @click="toCate()">Get Stated</el-button>
@@ -10,7 +21,7 @@
                 <div>
                     <img class="indexImg" src="../../../static/background.png">
                 </div>
-            </el-main>
+            </el-main> -->
         </el-container>
 
         <div class="recommend">
@@ -20,7 +31,7 @@
                     <!-- <el-popover width="100" placement="right" trigger="hover"> -->
 
                         <el-card slot="reference" class="card" :body-style="{ padding: '0px' }">
-                            <el-image class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/img/bookImg/' + book.img"></el-image>
+                            <el-image class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
                             <el-link class="name" @click="toInfo(book)" :underline="false">
                                 <i class="el-icon-reading readIcon"></i>
                                 {{ book.Name }}
@@ -45,7 +56,7 @@
             }
         },
         created() {
-            var address = "http://www.xiaoqw.online/server/bookstore/recommend.php";
+            var address = "https://www.xiaoqw.online/smallFrog-bookstore/server/recommend.php";
 
             axios.post(address).then(res => {
                 //这里是ES6的写法，get请求的地址
@@ -90,12 +101,12 @@
         font-size: 40px;
         font-weight: 600;
         text-align: left;
-        margin-left: 150px;
+        margin-left: 200px;
     }
 
     .indexImg {
         width: 500px;
-        margin: 0 auto;
+        margin-left: 200px;
     }
 
     .content {
@@ -104,13 +115,13 @@
         font-size: 18px;
         line-height: 35px;
         text-align: left;
-        margin-left: 150px;
+        margin-left: 200px;
     }
 
     .startBtn {
         width: 150px;
         height: 40px;
-        margin-left: 150px;
+        margin-left: 200px;
         margin-top: 80px;
         border-radius: 25px;
         border: none;

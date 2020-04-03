@@ -108,7 +108,7 @@
 			submitForm(formName) {
 				this.$refs[formName].validate(valid => {
 					if (valid) {
-						axios.post('http://www.xiaoqw.online/server/bookstore/register.php', {
+						axios.post('https://www.xiaoqw.online/smallFrog-bookstore/server/register.php', {
 							username: this.ruleForm.tel,
 							password: this.ruleForm.pass
 						}).then(response => { //用户名和密码将转为json传到后台接口              
@@ -126,7 +126,7 @@
 								this.$cookies.set("ID",this.ruleForm.tel);
 								
 								this.$router.push({
-									path: '/'
+									path: '/home'
 								});
 							}
 							else if (res.status == '0') { //显示登录结果

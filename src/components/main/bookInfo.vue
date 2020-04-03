@@ -5,7 +5,7 @@
         </div>
         <div v-loading="loading" class="bookInfo">
             <el-card class="box-card leftInfo">
-                <el-image style="height: 310px;" :src="'http://www.xiaoqw.online/img/bookImg/' + this.bookInfo.img">
+                <el-image style="height: 310px;" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + this.bookInfo.img">
                     <div slot="placeholder" class="image-slot">
                         加载中<span class="dot">...</span>
                     </div>
@@ -58,7 +58,7 @@
         },
         methods: {
             getInfo() {
-                var address = 'http://www.xiaoqw.online/server/BookStore/bookInfo.php';
+                var address = 'https://www.xiaoqw.online/smallFrog-bookstore/server/bookInfo.php';
 
                 axios.post(address, {
                     ID: this.$route.query.ID

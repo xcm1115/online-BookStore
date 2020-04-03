@@ -17,6 +17,7 @@
                 </el-col>
             </el-row>
         </el-header>
+        
         <el-container>
             <el-aside width="220px">
                 <el-card class="leftNav">
@@ -29,7 +30,7 @@
 
                 <el-row>
                     <el-card class="row" v-for="(book, index) in Books[showCategoryIndex].slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="index" :body-style="{ padding: '0px' }">
-                        <el-image class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/img/bookImg/' + book.img"></el-image>
+                        <el-image class="img" @click="toInfo(book)" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
                         <el-link class="name" @click="toInfo(book)" :underline="false">
                             <i class="el-icon-reading readIcon"></i>
                             {{ book.Name }}
@@ -61,6 +62,7 @@
 
 <script>
     import axios from "axios";
+    import 'element-ui/lib/theme-chalk/display.css';
 
     export default {
         data() {
@@ -84,10 +86,10 @@
             window.addEventListener('scroll', this.handleScroll);
         },
         created() {
-            var address1 = "http://www.xiaoqw.online/server/bookstore/allBooks.php";
-            var address2 = "http://www.xiaoqw.online/server/bookstore/pcBooks.php";
-            var address3 = "http://www.xiaoqw.online/server/bookstore/enBooks.php";
-            var address4 = "http://www.xiaoqw.online/server/bookstore/otherBooks.php";
+            var address1 = "https://www.xiaoqw.online/smallFrog-bookstore/server/allBooks.php";
+            var address2 = "https://www.xiaoqw.online/smallFrog-bookstore/server/pcBooks.php";
+            var address3 = "https://www.xiaoqw.online/smallFrog-bookstore/server/enBooks.php";
+            var address4 = "https://www.xiaoqw.online/smallFrog-bookstore/server/otherBooks.php";
 
             axios.post(address1).then(res => {
                     this.Books[0] = res.data; //获取数据
@@ -180,7 +182,7 @@
     }
 
     .search input.el-input__inner {
-        width: 320px;
+        width: 90%;
         height: 40px;
     }
 
@@ -201,7 +203,7 @@
         margin-top: -180px;
         margin-left: 40px;
         position: fixed;
-        border-radius: 15px;
+        border-radius: 25px;
         background-color: #4f6e9d;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
     }
@@ -211,7 +213,7 @@
         margin-bottom: 20px;
         color: #ffffff;
         position: relative;
-        border-radius: 12px;
+        border-radius: 20px;
     }
 
     .leftNav .navItem {
@@ -249,7 +251,6 @@
         margin-right: 30px;
         float: right;
         position: relative;
-        /* border-radius: 15px; */
     }
 
     .img {

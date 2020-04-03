@@ -2,21 +2,21 @@
     <div>
         <el-header>
             <el-row class="nav" type="flex" align="middle">
-                <el-col :span="4" class="box"><img class="image" src="../../../static/logo.png" @click="toHome()"></el-col>
-                <el-col :span="10">
-                    <el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
-                        <el-menu-item index="/">首页</el-menu-item>
+                <el-col :xs="0" :sm="2" :md="5" :lg="5" class="box hidden-xs-only"><img class="image" src="../../../static/logo.png" @click="toHome()"></el-col>
+                <el-col :xs="16" :sm="13" :md="10" :lg="8">
+                    <el-menu :default-active="$route.path" router="true" mode="horizontal" active-text-color="#4F6E9D">
+                        <el-menu-item index="/home">首页</el-menu-item>
                         <el-menu-item index="/category">书籍分类</el-menu-item>
                         <el-menu-item index="/newProduct">新货上架</el-menu-item>
                         <el-menu-item index="/onSale">特价市场</el-menu-item>
                     </el-menu>
                 </el-col>
-                <el-col :span="4" class="box">
+                <el-col :xs="0" :sm="2" :md="2" :lg="4" class="box hidden-md-and-down">
                     <el-input class="myInput1 myInput2" placeholder="搜索书籍" active-text-color="#4F6E9D" size="small" prefix-icon="el-icon-search" v-model="input" @focus="InputFocus" @blur="InputBlur" @confirm="toSearch()">
                     </el-input>
                 </el-col>
 
-                <el-col :span="1" :offset="2" class="box">
+                <el-col :xs="0" :sm="3" :md="2" :lg="4" class="box el-menu-demo hidden-xs-only">
                     <div v-if="this.$cookies.get('status') == 'unlogin' || !this.$cookies.get('status')">
                         <el-button class="myButton el-icon-user" @click="toLogin()" circle></el-button>
                     </div>
@@ -32,8 +32,7 @@
                     </div>
                 </el-col>
 
-                <el-col :span="3">
-                    <!-- <div>{{this.ID}}</div> -->
+                <el-col :xs="8" :sm="5" :md="5" :lg="3">
                     <el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
                         <el-menu-item index="/shopping">购物车</el-menu-item>
                         <el-menu-item index="/order">订单</el-menu-item>
@@ -60,6 +59,8 @@
 </template>
 
 <script>
+    import 'element-ui/lib/theme-chalk/display.css';
+
     export default {
         data() {
             return {
@@ -121,21 +122,19 @@
         text-align: center;
         color: #4F6E9D;
         font-size: 20px;
-        cursor: pointer;
     }
 
-    .el-menu-demo {
-        margin-left: 30px;
-    }
+    /* .el-menu-demo {
+        float: right;
+    } */
 
     .image {
-        margin-left: 20px;
         width: 200px;
     }
 
-    .el-icon-user {
-        float: right;
-    }
+    /* .el-icon-user {
+        float: right; 
+    } */
 
     /* 自定义类+内置类 */
     .myInput1 input.el-input__inner:focus {

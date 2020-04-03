@@ -89,7 +89,7 @@
 			submitForm(formName) {
 				this.$refs[formName].validate(valid => {
 					if (valid) {
-						axios.post('http://www.xiaoqw.online/server/bookstore/login.php', {
+						axios.post('https://www.xiaoqw.online/smallFrog-bookstore/server/login.php', {
 							username: this.ruleForm.tel,
 							password: this.ruleForm.pass
 						}).then(response => { //用户名和密码将转为json传到后台接口              
@@ -107,17 +107,25 @@
 								this.$cookies.set("ID",this.ruleForm.tel);
 								
 								this.$router.push({
-									path: '/'
+									path: '/home'
+								});
+							} else if (res.status == '0') {
+								console.log('账号或密码错误！');
+								this.$message({
+									showClose: true,
+									message: '账号或密码错误！',
+									type: 'error',
+									center: true
 								});
 							} else {
-								console.log('登录失败');
+                                console.log('登录失败');
 								this.$message({
 									showClose: true,
 									message: '登录失败！请稍后重试！',
 									type: 'error',
 									center: true
 								});
-							}
+                            }
 						});
 					} else {
 						console.log("账号或密码错误！");
@@ -129,12 +137,7 @@
 				this.$router.push({
 					path: '/register'
 				})
-            },
-            toRear() {
-				this.$router.push({
-					path: 'rear/login'
-				})
-			}
+            }
 		}
 	}
 </script>
