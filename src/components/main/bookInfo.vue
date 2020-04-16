@@ -5,11 +5,7 @@
         </div>
         <div v-loading="loading" class="bookInfo">
             <el-card class="box-card leftInfo">
-                <el-image style="height: 310px;" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + this.bookInfo.img">
-                    <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot">...</span>
-                    </div>
-                </el-image>
+                <img style="height: 310px;" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + this.bookInfo.img">
                 <div style="display: flex; margin-top: 20px; align-items: center;">
                     <div style="color: #606266;">推荐程度：</div>
                     <el-rate style="margin-top: 4px;" v-model="bookInfo.Commend" :colors="colors" disabled></el-rate>
@@ -39,7 +35,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -73,9 +68,7 @@
                 console.log(value);
             },
             goBack() {
-                this.$router.push({
-                    path: '/category'
-                })
+                this.$router.go(-1);
             }
         }
     }

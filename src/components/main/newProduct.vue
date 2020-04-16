@@ -2,22 +2,22 @@
     <el-row type="flex" justify="space-around">
         <el-col :span="7">
             <div class="colBack">
-                <el-card class="newCard" v-for="(book, index) in newOtherBooks" :key="index">
-                    <el-image class="newImg" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
+                <el-card class="newCard" v-for="(book, index) in newPcBooks" :key="index">
+                    <el-image class="newImg" @click="toInfo(book)" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
+                </el-card>
+            </div>
+        </el-col>
+        <el-col :span="7">
+            <div class="colBack">
+                <el-card class="newCard" v-for="(book, index) in newEnBooks" :key="index">
+                    <el-image class="newImg" @click="toInfo(book)" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
                 </el-card>
             </div>
         </el-col>
         <el-col :span="7">
             <div class="colBack">
                 <el-card class="newCard" v-for="(book, index) in newOtherBooks" :key="index">
-                    <el-image class="newImg" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
-                </el-card>
-            </div>
-        </el-col>
-        <el-col :span="7">
-            <div class="colBack">
-                <el-card class="newCard" v-for="(book, index) in newOtherBooks" :key="index">
-                    <el-image class="newImg" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
+                    <el-image class="newImg" @click="toInfo(book)" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
                 </el-card>
             </div>
         </el-col>
@@ -55,7 +55,14 @@
                 })
         },
         methods: {
-
+            toInfo(e) {
+                this.$router.push({
+                    path: "/bookInfo",
+                    query: {
+                        ID: e.ID
+                    }
+                });
+            },
         },
     };
 </script>

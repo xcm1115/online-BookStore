@@ -1,17 +1,17 @@
 <template>
     <div>
         <el-container>
-            <div style="display: flex;">
+            <div style="display: flex; margin-top: 40px;">
                 <div>
-                    <h1 class="homeTitle">smallFrog 书店</h1>
+                    <h1 class="homeTitle">SMALLFROG 书店</h1>
                     <p class="content">我希望政通人和，使大家能安安静静坐下来，想一点事，读一点书，写一点文章。</p>
-                    <el-button class="startBtn" @click="toCate()">Get Stated</el-button>
+                    <el-button class="startBtn" @click="toCate()" icon="el-icon-thumb">Get Stated</el-button>
                 </div>
                 <div>
                     <img class="indexImg" src="../../../static/background.png">
                 </div>
             </div>
-            
+
             <!-- <el-aside width="50%">
                 <h1 class="homeTitle">smallFrog 书店</h1>
                 <p class="content">我希望政通人和，使大家能安安静静坐下来，想一点事，读一点书，写一点文章。</p>
@@ -28,17 +28,14 @@
             <h1 class="recommendTitle">为您推荐</h1>
             <div class="recLine" v-for="(books, index) in transRecBooks" :key="index">
                 <div v-for="(book, index) in books" :key="index">
-                    <!-- <el-popover width="100" placement="right" trigger="hover"> -->
-
-                        <el-card slot="reference" class="card" :body-style="{ padding: '0px' }">
-                            <el-image class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
-                            <el-link class="name" @click="toInfo(book)" :underline="false">
-                                <i class="el-icon-reading readIcon"></i>
-                                {{ book.Name }}
-                            </el-link>
-                            <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
-                        </el-card>
-                    <!-- </el-popover> -->
+                    <el-card slot="reference" class="card" :body-style="{ padding: '0px' }">
+                        <el-image class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
+                        <el-link class="name" @click="toInfo(book)" :underline="false">
+                            <i class="el-icon-reading readIcon"></i>
+                            {{ book.Name }}
+                        </el-link>
+                        <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
+                    </el-card>
                 </div>
             </div>
         </div>
@@ -123,7 +120,8 @@
         height: 40px;
         margin-left: 200px;
         margin-top: 80px;
-        border-radius: 25px;
+        /* border-radius: 20px; */
+        font-size: 16px;
         border: none;
         outline: none;
         background-color: #4F6E9D;
@@ -173,11 +171,11 @@
         margin-right: 40px;
         /* border-radius: 15px; */
         position: relative;
+        text-align: justify;
     }
 
     .recommend .recLine .card .img {
         width: 80%;
-        height: 80%;
         display: block;
         cursor: pointer;
         margin: 0 auto;
@@ -195,23 +193,5 @@
     .recommend .recLine .card .rate {
         text-align: center;
         padding: 0 10px 14px 10px;
-    }
-
-    .el-link.el-link--default {
-        color: #4f6e9d;
-    }
-
-    .el-link.el-link--default:hover {
-        color: #7e9dca;
-    }
-
-    .recommend .recLine .row .readIcon {
-        text-align: left;
-        padding-right: 5px;
-    }
-
-    .recommend .recLine .row .rate {
-        text-align: center;
-        padding: 10px 10px 14px 10px;
     }
 </style>

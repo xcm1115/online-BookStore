@@ -123,7 +123,8 @@
 								});
 								
 								this.$cookies.set("status","logined");
-								this.$cookies.set("ID",this.ruleForm.tel);
+                                this.$cookies.set("Logname",this.ruleForm.tel);
+                                this.$cookies.set("Avatar","none");
 								
 								this.$router.push({
 									path: '/home'

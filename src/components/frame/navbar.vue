@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <el-container>
         <el-header>
             <el-row class="nav" type="flex" align="middle">
                 <el-col :xs="0" :sm="2" :md="5" :lg="5" class="box hidden-xs-only"><img class="image" src="../../../static/logo.png" @click="toHome()"></el-col>
@@ -23,7 +23,10 @@
 
                     <div v-if="this.$cookies.get('status') == 'logined'">
                         <el-dropdown>
-                            <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                            <el-avatar :src="this.$cookies.get('Avatar')" @error="errorHandler">
+                                <img src="../../../static/avatar.jpg"/>>
+                            </el-avatar>
+
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item icon="el-icon-setting"><label @click="setting()">个人中心</label></el-dropdown-item>
                                 <el-dropdown-item icon="el-icon-circle-close"><label @click="exit()">退出登录</label></el-dropdown-item>
@@ -42,26 +45,62 @@
         </el-header>
 
         <el-main>
-            <keep-alive>
-                <router-view v-if="$route.meta.keepAlive"></router-view>
-            </keep-alive>
-            <router-view v-if="!$route.meta.keepAlive"></router-view>
+            <!-- <transition mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut"> -->
+                <keep-alive>
+                    <router-view v-if="$route.meta.keepAlive"></router-view>
+                </keep-alive>
+            <!-- </transition> -->
+            <!-- <transition mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut"> -->
+                <router-view v-if="!$route.meta.keepAlive"></router-view>
+            <!-- </transition> -->
         </el-main>
 
-        <div class="footer" v-show="$route.name!=='login' && $route.name!=='register'">
-            <el-row class="border" type="flex">
-                <el-col :span="24">
-                    <div class="contact">© 联系方式：smallFrogBookstore@163.com</div>
+        <footer class="footer" v-show="$route.name!=='login' && $route.name!=='register'">
+            <el-row>
+                <el-col :span="10" style="text-align: center;">
+                    <div class="logo">
+                        <el-image class="favicon" src="../../../static/favicon.png"></el-image>
+                        SMALLFROG
+                    </div>
+                    <p class="description">What books are you looking for? SMALLFROG is a bookstore for book lovers to read and buy the books they are fond of.</p>
+                    <div style="display: inline-block;">
+                        <el-image class="socialImg" src="../../../static/social-facebook.png"></el-image>
+                        <el-image class="socialImg" src="../../../static/social-instagram.png"></el-image>
+                        <el-image class="socialImg" src="../../../static/social-twitter.png"></el-image>
+                    </div>
+                </el-col>
+                <el-col :span="14">
+                    <div class="right">
+                        <dl>
+                            <dd>关于我们</dd>
+                            <dd>联系我们</dd>
+                            <dd>用户协议</dd>
+                        </dl>
+                        <dl>
+                            <dd>加入我们</dd>
+                            <dd>友情链接</dd>
+                            <dd>隐私政策</dd>
+                        </dl>
+                        <dl>
+                            <dd>帮助中心</dd>
+                            <dd>反馈中心</dd>
+                            <dd>
+                                <el-link :underline="false" href="https://github.com/xcm1115/smallFrog-bookstore">项目地址</el-link>
+                            </dd>
+                        </dl>
+                    </div>
+                    <el-link href="http://www.beian.miit.gov.cn">桂ICP备20001659号</el-link>
                 </el-col>
             </el-row>
-        </div>
-    </div>
+        </footer>
+    </el-container>
 </template>
 
 <script>
     import 'element-ui/lib/theme-chalk/display.css';
 
     export default {
+        inject: ['reload'],
         data() {
             return {
                 input: '',
@@ -85,7 +124,10 @@
             },
             exit() {
                 this.$cookies.set("status", "unlogin");
-                location.reload();
+                this.reload();
+            },
+            errorHandler() {
+                return true;
             }
         }
     }
@@ -93,7 +135,6 @@
 
 <style>
     .nav {
-        width: 100%;
         top: 0;
         left: 0;
         right: 0;  
@@ -122,6 +163,7 @@
         text-align: center;
         color: #4F6E9D;
         font-size: 20px;
+        cursor: pointer;
     }
 
     /* .el-menu-demo {
@@ -130,6 +172,7 @@
 
     .image {
         width: 200px;
+        margin-left: 15px;
     }
 
     /* .el-icon-user {
@@ -164,17 +207,48 @@
 
 
     .footer {
-        background-color: #4F6E9D;
-	}
-	
-    .border {
-		line-height: 100px;
-		margin: 0 auto;
-    }
-	
-	.contact {
-		color: #FFFFFF;
-		margin-left: 30px;
+        background-color: #F2F6FC;
+        height: 220px;
         text-align: center;
 	}
+
+    .footer .logo {
+        margin-top: 30px;
+        font-size: 22px;
+        font-weight: 600;
+        color: #303133;
+    }
+
+    .footer .logo .favicon {
+        width: 35px;
+        margin-right: 10px;
+    }
+
+    .footer .description {
+        text-align: justify;
+        width: 70%;
+        margin-left: 100px;
+        color: #303133;
+    }
+
+    .footer .socialImg {
+        width: 25px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+	.footer .contact {
+		color: #303133;
+	}
+
+    .footer .right {
+        display: flex;
+    }
+
+    .footer dl {
+        margin-top: 30px;
+        margin-left: 120px;
+        line-height: 40px;
+        color: #303133;
+    }
 </style>

@@ -26,8 +26,8 @@
                     <div class="navItem" @click="toTop()"><i class="el-icon-arrow-up" style="font-size: 23px;"></i></div>
                 </el-card>
             </el-aside>
-            <el-main v-loading.fullscreen.lock="loading" element-loading-background="#FFFFFF">
 
+            <el-main v-loading.fullscreen.lock="loading" element-loading-background="#FFFFFF">
                 <el-row>
                     <el-card class="row" v-for="(book, index) in Books[showCategoryIndex].slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="index" :body-style="{ padding: '0px' }">
                         <el-image class="img" @click="toInfo(book)" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
@@ -253,7 +253,7 @@
         position: relative;
     }
 
-    .img {
+    .row .img {
         width: 100%;
         height: 200px;
         display: block;
@@ -261,11 +261,11 @@
         transition: all 0.6s;
     }
 
-    .img:hover {
+    .row .img:hover {
         transform: scale(1.1);
     }
 
-    .name {
+    .row .name {
         padding-top: 14px;
         padding-left: 15px;
         padding-right: 15px;
@@ -280,12 +280,12 @@
         color: #7e9dca;
     }
 
-    .readIcon {
+    .row .readIcon {
         text-align: left;
         padding-right: 5px;
     }
 
-    .author {
+    .row .author {
         text-align: left;
         color: #909399;
         padding-top: 14px;
@@ -294,7 +294,7 @@
         font-size: 15px;
     }
 
-    .price {
+    .row .price {
         margin-top: 10px;
         margin-bottom: 10px;
         font-size: 15px;
@@ -302,7 +302,7 @@
         padding-top: 4px;
     }
 
-    .shop {
+    .row .shop {
         margin-top: 10px;
         margin-bottom: 10px;
         border: none;
@@ -313,40 +313,23 @@
         padding-right: 15px;
     }
 
-    .icon {
+    .row .shop .icon {
         color: #4f6e9d;
         cursor: pointer;
         transition: all 0.3s;
     }
 
-    .icon:hover {
+    .row .shop .icon:hover {
         transform: scale(1.1);
     }
 
-    .rate {
+    .row .rate {
         text-align: center;
         padding: 0 10px 14px 10px;
-    }
-
-    .clearfix:before,
-    .clearfix:after {
-        display: table;
-        content: "";
-    }
-
-    .clearfix:after {
-        clear: both;
     }
 
     .page {
         margin-top: 30px;
         text-align: center;
-    }
-
-    .pageBottom {
-        margin-top: 30px;
-        margin-bottom: 30px;
-        text-align: center;
-        color: #c0c4cc;
     }
 </style>

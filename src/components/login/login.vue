@@ -104,7 +104,8 @@
 								});
 								
 								this.$cookies.set("status","logined");
-								this.$cookies.set("ID",this.ruleForm.tel);
+                                this.$cookies.set("Logname",res.ID);
+                                this.$cookies.set("Avatar",res.Avatar);
 								
 								this.$router.push({
 									path: '/home'
