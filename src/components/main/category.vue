@@ -30,7 +30,7 @@
             <el-main v-loading.fullscreen.lock="loading" element-loading-background="#FFFFFF">
                 <el-row>
                     <el-card class="row" v-for="(book, index) in Books[showCategoryIndex].slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="index" :body-style="{ padding: '0px' }">
-                        <el-image class="img" @click="toInfo(book)" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
+                        <img class="img" @click="toInfo(book)" :src="'https://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img">
                         <el-link class="name" @click="toInfo(book)" :underline="false">
                             <i class="el-icon-reading readIcon"></i>
                             {{ book.Name }}
@@ -203,7 +203,7 @@
         margin-top: -180px;
         margin-left: 40px;
         position: fixed;
-        border-radius: 25px;
+        border-radius: 20px;
         background-color: #4f6e9d;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
     }
@@ -213,7 +213,7 @@
         margin-bottom: 20px;
         color: #ffffff;
         position: relative;
-        border-radius: 20px;
+        border-radius: 15px;
     }
 
     .leftNav .navItem {
