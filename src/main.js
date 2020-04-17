@@ -5,14 +5,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
-// import animate from 'animate.css'
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
 
 Vue.use(VueCookies)
 Vue.use(ElementUI)
 Vue.use(axios)
-// vue.use(animate)
 Vue.config.productionTip = false
 
 // 设置反向代理，前端请求默认发送到 http://localhost:8625/api

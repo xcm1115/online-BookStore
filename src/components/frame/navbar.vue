@@ -16,16 +16,14 @@
                     </el-input>
                 </el-col>
 
-                <el-col :xs="0" :sm="3" :md="2" :lg="4" class="box el-menu-demo hidden-xs-only">
+                <el-col :xs="0" :sm="3" :md="2" :lg="3" class="box hidden-xs-only">
                     <div v-if="this.$cookies.get('status') == 'unlogin' || !this.$cookies.get('status')">
                         <el-button class="myButton el-icon-user" @click="toLogin()" circle></el-button>
                     </div>
 
                     <div v-if="this.$cookies.get('status') == 'logined'">
                         <el-dropdown>
-                            <el-avatar :src="this.$cookies.get('Avatar')" @error="errorHandler">
-                                <img src="../../../static/avatar.jpg"/>>
-                            </el-avatar>
+                            <el-avatar :src="this.$cookies.get('Avatar')" @error="errorHandler"></el-avatar>
 
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item icon="el-icon-setting"><label @click="setting()">个人中心</label></el-dropdown-item>
@@ -35,24 +33,29 @@
                     </div>
                 </el-col>
 
-                <el-col :xs="8" :sm="5" :md="5" :lg="3">
-                    <el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
-                        <el-menu-item index="/shopping">购物车</el-menu-item>
+                <el-col :xs="8" :sm="4" :md="5" :lg="4">
+                    <div style="display: flex;">
+                        <div class="cart" @click="toCart()"><i class="el-icon-s-goods cartIcon"></i>购物车</div>
+                        <div class="order" @click="toOrder()"><i class="el-icon-s-order orderIcon"></i>订单</div>
+                    </div>
+                    
+                    <!-- <el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
+                        <el-menu-item index="/shopping/cart">购物车</el-menu-item>
                         <el-menu-item index="/order">订单</el-menu-item>
-                    </el-menu>
+                    </el-menu> -->
                 </el-col>
             </el-row>
         </el-header>
 
         <el-main>
-            <!-- <transition mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut"> -->
+            <transition mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
                 <keep-alive>
                     <router-view v-if="$route.meta.keepAlive"></router-view>
                 </keep-alive>
-            <!-- </transition> -->
-            <!-- <transition mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut"> -->
+            </transition>
+            <transition mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
                 <router-view v-if="!$route.meta.keepAlive"></router-view>
-            <!-- </transition> -->
+            </transition>
         </el-main>
 
         <footer class="footer" v-show="$route.name!=='login' && $route.name!=='register'">
@@ -82,8 +85,8 @@
                             <dd>隐私政策</dd>
                         </dl>
                         <dl>
+                            <dd>购物指南</dd>
                             <dd>帮助中心</dd>
-                            <dd>反馈中心</dd>
                             <dd>
                                 <el-link :underline="false" href="https://github.com/xcm1115/smallFrog-bookstore">项目地址</el-link>
                             </dd>
@@ -98,6 +101,7 @@
 
 <script>
     import 'element-ui/lib/theme-chalk/display.css';
+    import animate from 'animate.css'
 
     export default {
         inject: ['reload'],
@@ -115,6 +119,16 @@
             toHome() {
                 this.$router.push({
                     path: '/'
+                })
+            },
+            toCart() {
+                this.$router.push({
+                    path: '/shopping/cart'
+                })
+            },
+            toOrder() {
+                this.$router.push({
+                    path: '/order'
                 })
             },
             setting() {
@@ -158,7 +172,7 @@
         color: #4F6E9D;
     }
 
-    .box {
+    .nav .box {
         background-color: #FFFFFF;
         text-align: center;
         color: #4F6E9D;
@@ -166,43 +180,72 @@
         cursor: pointer;
     }
 
-    /* .el-menu-demo {
-        float: right;
-    } */
-
-    .image {
+    .nav .box .image {
         width: 200px;
         margin-left: 15px;
     }
 
-    /* .el-icon-user {
-        float: right; 
-    } */
-
-    /* 自定义类+内置类 */
-    .myInput1 input.el-input__inner:focus {
+    .nav .box .myInput1 input.el-input__inner:focus {
         border-color: #4F6E9D;
     }
 
-    .myInput2 input.el-input__inner {
+    .nav .box .myInput2 input.el-input__inner {
         border-radius: 25px;
     }
 
-    .myButton:focus,
-    .myButton:hover {
+    .nav .box .myButton:focus,
+    .nav .box .myButton:hover {
         color: #FFFFFF;
         border-color: #7E9DCA;
         background-color: #7E9DCA;
     }
 
-    .myButton:active {
+    .nav .box .myButton:active {
         color: #FFFFFF;
         border-color: #7E9DCA;
         outline: 0;
     }
 
-    .el-avatar {
+    .nav .cart {
+        width: 50%;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        color: #F5f5f5;
+        background-color: #4F6E9D;
+        font-size: 15px;
         cursor: pointer;
+        /* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); */
+    }
+
+    .nav .cart:hover {
+        background-color: #7E9DCA;
+    }
+
+    .nav .cartIcon {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+
+    .nav .order {
+        width: 50%;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        color: #F5f5f5;
+        background-color: #4F6E9D;
+        font-size: 15px;
+        cursor: pointer;
+        /* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); */
+    }
+
+    .nav .order:hover {
+        background-color: #7E9DCA;
+    }
+
+    .nav .orderIcon {
+        font-size: 18px;
+        margin-right: 10px;
     }
 
 

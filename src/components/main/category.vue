@@ -181,6 +181,14 @@
         color: #4f6e9d;
     }
 
+    .myInput1 input.el-input__inner:focus {
+        border-color: #4F6E9D;
+    }
+
+    .myInput2 input.el-input__inner {
+        border-radius: 25px;
+    }
+
     .search input.el-input__inner {
         width: 90%;
         height: 40px;

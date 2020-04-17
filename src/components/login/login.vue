@@ -6,7 +6,7 @@
 
 		<el-col :span="12">
 			<div class="title"><img class="head" src="../../../static/head1.gif"></div>
-			<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0" class="demo-ruleForm">
+			<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0">
 				<div class="myInput username1">
 					<el-form-item prop="tel">
 						<el-input class="myInput1 myInput2" prefix-icon="el-icon-user" v-model="ruleForm.tel" placeholder="请输入手机号" clearable="true"></el-input>

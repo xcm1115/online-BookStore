@@ -11,14 +11,14 @@ import category from '@/components/main/category'
 import bookInfo from '@/components/main/bookInfo'
 import newProduct from '@/components/main/newProduct'
 import onSale from '@/components/main/onSale'
-import shopping from '@/components/main/shopping'
+import cart from '@/components/main/cart'
+import settle from '@/components/main/settle'
 import order from '@/components/main/order'
 
 Vue.use(Router)
 
 export default new Router({
-	routes: [
-        {
+    routes: [{
             path: '/',
             redirect: '/home'
         },
@@ -26,8 +26,7 @@ export default new Router({
             path: '/',
             name: 'navbar',
             component: navbar,
-            children: [
-                {
+            children: [{
                     path: '/login',
                     name: 'login',
                     component: login,
@@ -85,11 +84,19 @@ export default new Router({
                     }
                 },
                 {
-                    path: '/shopping',
-                    name: 'shopping',
-                    component: shopping,
+                    path: '/shopping/cart',
+                    name: 'cart',
+                    component: cart,
                     meta: {
-                        title: '订单确认'
+                        title: '购物车'
+                    }
+                },
+                {
+                    path: '/shopping/settle',
+                    name: 'settle',
+                    component: settle,
+                    meta: {
+                        title: '确认订单'
                     }
                 },
                 {
@@ -110,5 +117,5 @@ export default new Router({
                 }
             ]
         }
-	]
+    ]
 })
