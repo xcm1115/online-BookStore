@@ -62,14 +62,14 @@
             <el-row>
                 <el-col :span="10" style="text-align: center;">
                     <div class="logo">
-                        <el-image class="favicon" src="../../../static/favicon.png"></el-image>
+                        <img class="favicon" src="../../../static/favicon.png">
                         SMALLFROG
                     </div>
                     <p class="description">What books are you looking for? SMALLFROG is a bookstore for book lovers to read and buy the books they are fond of.</p>
                     <div style="display: inline-block;">
-                        <el-image class="socialImg" src="../../../static/social-facebook.png"></el-image>
-                        <el-image class="socialImg" src="../../../static/social-instagram.png"></el-image>
-                        <el-image class="socialImg" src="../../../static/social-twitter.png"></el-image>
+                        <img class="socialImg" src="../../../static/social-facebook.png">
+                        <img class="socialImg" src="../../../static/social-instagram.png">
+                        <img class="socialImg" src="../../../static/social-twitter.png">
                     </div>
                 </el-col>
                 <el-col :span="14">
