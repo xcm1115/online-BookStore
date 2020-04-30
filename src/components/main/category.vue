@@ -1,25 +1,25 @@
 <template>
-    <div class="loading-area">
-        <el-header>
+    <div>
+        <!-- <el-header>
             <el-row type="flex" justify="space-between" align="middle">
                 <el-col :span="8" class="title-left">
                     <i class="el-icon-menu"></i>
                     <span>CATEGORIES</span>
                 </el-col>
                 <el-col :span="6">
-                    <el-input class="myInput1 myInput2 search" placeholder="搜索书籍" active-text-color="#4F6E9D" prefix-icon="el-icon-search" v-model="searchText" @confirm="toSearch()"></el-input>
+                    <el-input class="search1 search2 search3" placeholder="搜索书籍" active-text-color="#4F6E9D" prefix-icon="el-icon-search" v-model="searchText" @confirm="toSearch()"></el-input>
                 </el-col>
                 <el-col :span="2">
-                    <el-button class="cateButton myButton" @tap="toSearch()">Search</el-button>
+                    <el-button class="cateButton" icon="el-icon-search" @click="toSearch()"></el-button>
                 </el-col>
                 <el-col :span="8" class="title-right">
                     <el-tag type="warning" size="medium">Books</el-tag>
                 </el-col>
             </el-row>
-        </el-header>
+        </el-header> -->
         
         <el-container>
-            <el-aside width="220px">
+            <el-aside width="150px">
                 <el-card class="leftNav">
                     <img src="../../../static/cateNav.png" class="leftImg" />
                     <div class="navItem" :class="index == showCategoryIndex ? 'cur' : ''" v-for="(item, index) in navItems" :key="index" @click="showCategory(index)">{{ item }}</div>
@@ -41,7 +41,7 @@
                             <el-row type="flex" align="middle">
                                 <el-col :span="12" class="price">¥ {{ book.Price }}</el-col>
                                 <el-col :span="12">
-                                    <button class="shop" @click="open()">
+                                    <button class="shop" @click="addToCart(book)">
                                         <i class="el-icon-shopping-bag-1 icon"></i>
                                     </button>
                                 </el-col>
@@ -136,20 +136,32 @@
             showCategory(index) {
                 this.showCategoryIndex = index;
             },
-            open() {
-                this.$confirm("确定将此书加入购物车?", "BookStore", {
+            addToCart(e) {
+                this.$confirm("确定将此书加入购物车?", "smallFrog", {
                         confirmButtonText: "确定",
                         cancelButtonText: "取消",
                         type: "warning"
                     })
                     .then(() => {
-                        this.$notify({
-                            title: "SHOP",
-                            message: "成功加入购物车!",
-                            type: "success"
+                        var address = "https://www.xiaoqw.online/smallFrog-bookstore/server/addToCart.php";
+
+                        axios.post(address, {
+                            user_ID: this.$cookies.get('user_ID'),
+                            book_ID: e.ID,
+                            book_Img: e.img,
+                            book_Name: e.Name,
+                            unit_Price: e.Price,
+                            count: 1
+                        }).then(res => {
+                            console.log("success");
                         });
-                    })
-                    .catch(() => {});
+                        
+                        this.$message({
+                        type: 'success',
+                        message: '成功加入购物车！'
+                    });
+                })
+                .catch(() => {});
             }
         },
         //第四步：当再次进入（前进或者后退）时，只触发activated（注：只有在keep-alive加载时调用）
@@ -166,7 +178,7 @@
     };
 </script>
 
-<style>
+<style scoped>
     .title-left {
         line-height: 100px;
         margin-left: 20px;
@@ -181,26 +193,12 @@
         color: #4f6e9d;
     }
 
-    .myInput1 input.el-input__inner:focus {
-        border-color: #4F6E9D;
-    }
-
-    .myInput2 input.el-input__inner {
-        border-radius: 25px;
-    }
-
-    .search input.el-input__inner {
-        width: 90%;
-        height: 40px;
-    }
-
     .cateButton {
         border-radius: 25px;
-        border: none;
-        outline: none;
         background-color: #4f6e9d;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
         color: #ffffff;
+        margin-left: 20px;
     }
 
     /* main里的样式 */
@@ -209,7 +207,7 @@
         width: 150px;
         height: 410px;
         margin-top: -180px;
-        margin-left: 40px;
+        margin-left: 60px;
         position: fixed;
         border-radius: 20px;
         background-color: #4f6e9d;
@@ -221,7 +219,7 @@
         margin-bottom: 20px;
         color: #ffffff;
         position: relative;
-        border-radius: 15px;
+        border-radius: 12px;
     }
 
     .leftNav .navItem {

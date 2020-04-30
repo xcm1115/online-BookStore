@@ -20,11 +20,13 @@ Vue.config.productionTip = false
 // Vue.prototype.$axios = axios
 
 router.beforeEach((to, from, next) => {
-    /* 路由发生变化修改页面title */
-    if (to.meta.title) {
-        document.title = to.meta.title + ' - smallFrog 书城'
+    document.title = to.meta.title + ' - smallFrog 书城'
+    const role = VueCookies.get('user_ID');
+    if (to.meta.permission && !role && (to.path == '/shopping/cart' || to.path == '/shopping/settle' || to.path == '/shopping/pay' || to.path == '/order' || to.path == '/setting')) {
+        next('/403'); 
+    } else {
+        next();
     }
-    next()
 })
 
 /* eslint-disable no-new */

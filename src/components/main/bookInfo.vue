@@ -28,8 +28,8 @@
                         <el-input-number v-model="num" @change="handleChange" :min="1" :max="bookInfo.Book_Num"></el-input-number>
                     </div>
                     <div style="display: flex; margin-top: 40px;">
-                        <el-button class="buyButton1">加入购物车</el-button>
-                        <el-button class="buyButton2" style="margin-left: 30px;">立即购买</el-button>
+                        <el-button class="buyButton1" @click="addToCart(bookInfo)">加入购物车</el-button>
+                        <el-button class="buyButton2" style="margin-left: 30px;" @click="toSettle(bookInfo)">立即购买</el-button>
                     </div>
                 </div>
             </div>
@@ -46,6 +46,7 @@
                 loading: true,
                 bookInfo: [],
                 num: 1,
+                cart: [[]]
             }
         },
         created() {
@@ -61,7 +62,7 @@
                     this.bookInfo = res.data; //获取数据  
                     console.log('success');
                     console.log(this.bookInfo);
-                })
+                });
                 this.loading = false;
             },
             handleChange(value) {
@@ -69,6 +70,42 @@
             },
             goBack() {
                 this.$router.go(-1);
+            },
+            addToCart(e) {
+                var address = "https://www.xiaoqw.online/smallFrog-bookstore/server/addToCart.php";
+
+                axios.post(address, {
+                    user_ID: this.$cookies.get('user_ID'),
+                    book_ID: e.ID,
+                    book_Img: e.img,
+                    book_Name: e.Name,
+                    unit_Price: e.Price,
+                    count: this.num
+                }).then(res => {
+                    console.log("success");
+                    this.$message({
+                        type: 'success',
+                        message: '成功加入购物车！'
+                    });
+                });
+            },
+            setCart() {
+                this.cart[0]['user_ID'] = this.$cookies.get('user_ID');
+                this.cart[0]['book_ID'] = this.bookInfo.ID;
+                this.cart[0]['book_Name'] = this.bookInfo.Name;
+                this.cart[0]['book_Img'] = this.bookInfo.img;
+                this.cart[0]['unit_Price'] = this.bookInfo.Price;
+                this.cart[0]['count'] = this.num;
+            },
+            toSettle() {
+                this.setCart();
+                
+                this.$router.push({
+                    path: "/shopping/settle",
+                    query: {
+                        cart: this.cart
+                    }
+                });
             }
         }
     }
@@ -116,7 +153,7 @@
         color: #FFFFFF;
         outline: none;
         border-color: #4F6E9D;
-        border-radius: 25px;
+        border-radius: 0;
     }
 
     .buyButton1:focus,
@@ -130,7 +167,7 @@
     .buyButton2 {
         width: 150px;
         outline: none;
-        border-radius: 25px;
+        border-radius: 0;
         color: #4f6e9d;
     }
 

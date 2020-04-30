@@ -5,36 +5,29 @@
                 <div>
                     <h1 class="homeTitle">SMALLFROG 书店</h1>
                     <p class="content">我希望政通人和，使大家能安安静静坐下来，想一点事，读一点书，写一点文章。</p>
-                    <el-button class="startBtn" @click="toCate()" icon="el-icon-thumb">Get Stated</el-button>
+                    <el-button class="startBtn" @click="toCate()">SHOPPING</el-button>
                 </div>
                 <div>
                     <img class="indexImg" src="../../../static/background.png">
                 </div>
             </div>
-
-            <!-- <el-aside width="50%">
-                <h1 class="homeTitle">smallFrog 书店</h1>
-                <p class="content">我希望政通人和，使大家能安安静静坐下来，想一点事，读一点书，写一点文章。</p>
-                <el-button class="startBtn" @click="toCate()">Get Stated</el-button>
-            </el-aside>
-            <el-main>
-                <div>
-                    <img class="indexImg" src="../../../static/background.png">
-                </div>
-            </el-main> -->
         </el-container>
 
         <div class="recommend">
             <h1 class="recommendTitle">为您推荐</h1>
-            <div class="recLine" v-for="(books, index) in transRecBooks" :key="index">
+            <div class="recLine" data-wow-duration="2s" v-for="(books, index) in transRecBooks" :key="index">
                 <div v-for="(book, index) in books" :key="index">
-                    <el-card slot="reference" class="card" :body-style="{ padding: '0px' }">
-                        <el-image class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img"></el-image>
-                        <el-link class="name" @click="toInfo(book)" :underline="false">
-                            <i class="el-icon-reading readIcon"></i>
-                            {{ book.Name }}
-                        </el-link>
-                        <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
+                    <el-card slot="reference" class="wow slideInUp card" :body-style="{ padding: '0px' }">
+                        <img class="img" @click="toInfo(book)" :src="'http://www.xiaoqw.online/smallFrog-bookstore/img/' + book.img">
+                        
+                        <div class="mask">
+                            <el-link class="name" @click="toInfo(book)" :underline="false">
+                                <i class="el-icon-reading readIcon"></i>
+                                {{ book.Name }}
+                            </el-link>
+                            <el-rate class="rate" v-model="book.Commend" :colors="colors" disabled></el-rate>
+                        </div>
+                        
                     </el-card>
                 </div>
             </div>
@@ -44,6 +37,8 @@
 
 <script>
     import axios from "axios";
+    // import animate from 'animate.css'
+    // import {WOW} from 'wowjs';
 
     export default {
         data() {
@@ -63,6 +58,14 @@
                 this.transRec();
             })
         },
+        // mounted() {
+    	// // 在项目加载完成之后初始化wow
+        //     var options={
+        //         //默认为true
+        //         live:false
+        //     };
+        //     var wow=new WOW(options);
+        // },
         methods: {
             transRec() {
                 var Arr = [];
@@ -91,7 +94,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .homeTitle {
         width: 400px;
         color: #333333;
@@ -116,14 +119,14 @@
     }
 
     .startBtn {
-        width: 150px;
-        height: 40px;
+        width: 180px;
+        height: 50px;
         margin-left: 200px;
         margin-top: 80px;
-        /* border-radius: 20px; */
+        border-radius: 0;
         font-size: 16px;
-        border: none;
-        outline: none;
+        border: 0;
+        outline: 0;
         background-color: #4F6E9D;
         color: #FFFFFF;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
@@ -134,12 +137,6 @@
         color: #FFFFFF;
         border-color: #7E9DCA;
         background-color: #7E9DCA;
-    }
-
-    .startBtn:active {
-        color: #FFFFFF;
-        border-color: #7E9DCA;
-        outline: 0;
     }
 
     .recommend {
@@ -182,7 +179,13 @@
         padding-top: 20px;
     }
 
-    .recommend .recLine .card .name {
+    .recommend .recLine .card .mask {
+        width: 100%;
+        margin-top: 20px;
+        background-color: #f8fafc;
+    }
+
+    .recommend .recLine .card .mask .name {
         padding-top: 14px;
         padding-left: 20px;
         padding-right: 20px;
@@ -190,8 +193,16 @@
         font-size: 16px;
     }
 
-    .recommend .recLine .card .rate {
+    .recommend .recLine .card .mask .rate {
         text-align: center;
         padding: 0 10px 14px 10px;
+    }
+
+    .el-link.el-link--default {
+        color: #4f6e9d;
+    }
+
+    .el-link.el-link--default:hover {
+        color: #7e9dca;
     }
 </style>

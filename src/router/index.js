@@ -13,7 +13,10 @@ import newProduct from '@/components/main/newProduct'
 import onSale from '@/components/main/onSale'
 import cart from '@/components/main/cart'
 import settle from '@/components/main/settle'
+import pay from '@/components/main/pay'
 import order from '@/components/main/order'
+import permission from '@/components/main/403'
+import notFound from '@/components/main/404'
 
 Vue.use(Router)
 
@@ -88,7 +91,8 @@ export default new Router({
                     name: 'cart',
                     component: cart,
                     meta: {
-                        title: '购物车'
+                        title: '购物车',
+                        permission: true
                     }
                 },
                 {
@@ -96,7 +100,17 @@ export default new Router({
                     name: 'settle',
                     component: settle,
                     meta: {
-                        title: '确认订单'
+                        title: '确认订单',
+                        permission: true
+                    }
+                },
+                {
+                    path: '/shopping/pay',
+                    name: 'pay',
+                    component: pay,
+                    meta: {
+                        title: '在线支付',
+                        permission: true
                     }
                 },
                 {
@@ -104,7 +118,8 @@ export default new Router({
                     name: 'order',
                     component: order,
                     meta: {
-                        title: '我的订单'
+                        title: '我的订单',
+                        permission: true
                     }
                 },
                 {
@@ -112,8 +127,29 @@ export default new Router({
                     name: 'setting',
                     component: setting,
                     meta: {
-                        title: '个人中心'
+                        title: '个人中心',
+                        permission: true
                     }
+                },
+                {
+                    path: '/403',
+                    name: 'permission',
+                    component: permission,
+                    meta: {
+                        title: '403',
+                    }
+                },
+                {
+                    path: '/404',
+                    name: 'notFound',
+                    component: notFound,
+                    meta: {
+                        title: '404',
+                    }
+                },
+                {
+                    path: "*", // 此处需特别注意置于最底部
+                    redirect: "/404"
                 }
             ]
         }

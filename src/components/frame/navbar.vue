@@ -12,7 +12,7 @@
                     </el-menu>
                 </el-col>
                 <el-col :xs="0" :sm="2" :md="2" :lg="4" class="box hidden-md-and-down">
-                    <el-input class="myInput1 myInput2" placeholder="搜索书籍" active-text-color="#4F6E9D" size="small" prefix-icon="el-icon-search" v-model="input" @focus="InputFocus" @blur="InputBlur" @confirm="toSearch()">
+                    <el-input class="search1 search2 search3" placeholder="输入书名搜索书籍" active-text-color="#4F6E9D" size="small" prefix-icon="el-icon-search" v-model="input" @focus="InputFocus" @blur="InputBlur" @confirm="toSearch()">
                     </el-input>
                 </el-col>
 
@@ -38,7 +38,7 @@
                         <div class="cart" @click="toCart()"><i class="el-icon-s-goods cartIcon"></i>购物车</div>
                         <div class="order" @click="toOrder()"><i class="el-icon-s-order orderIcon"></i>订单</div>
                     </div>
-                    
+
                     <!-- <el-menu :default-active="$route.path" router="true" class="el-menu-demo" mode="horizontal" active-text-color="#4F6E9D">
                         <el-menu-item index="/shopping/cart">购物车</el-menu-item>
                         <el-menu-item index="/order">订单</el-menu-item>
@@ -122,14 +122,38 @@
                 })
             },
             toCart() {
-                this.$router.push({
-                    path: '/shopping/cart'
-                })
+                if (this.$cookies.get('status') == 'logined') {
+                    this.$router.push({
+                        path: '/shopping/cart'
+                    })
+                } else {
+                    this.$confirm('您尚未登录！', 'smallFrog', {
+                        confirmButtonText: '去登陆',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$router.push({
+                            path: '/login'
+                        })
+                    });
+                }
             },
             toOrder() {
-                this.$router.push({
-                    path: '/order'
-                })
+                if (this.$cookies.get('status') == 'logined') {
+                    this.$router.push({
+                        path: '/order'
+                    })
+                } else {
+                    this.$confirm('您尚未登录！', 'smallFrog', {
+                        confirmButtonText: '去登陆',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$router.push({
+                            path: '/login'
+                        })
+                    });
+                }
             },
             setting() {
                 this.$router.push({
@@ -138,6 +162,8 @@
             },
             exit() {
                 this.$cookies.set("status", "unlogin");
+                this.$cookies.remove('user_ID');
+                this.$cookies.remove('Avatar');
                 this.reload();
             },
             errorHandler() {
@@ -151,7 +177,7 @@
     .nav {
         top: 0;
         left: 0;
-        right: 0;  
+        right: 0;
         background-color: #FFFFFF;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         position: fixed;
@@ -185,11 +211,21 @@
         margin-left: 15px;
     }
 
-    .nav .box .myInput1 input.el-input__inner:focus {
-        border-color: #4F6E9D;
+    .search1 input.el-input__inner {
+        /* width: 90%; */
+        /* border-color: #4F6E9D; */
+        border-radius: 25px;
     }
 
-    .nav .box .myInput2 input.el-input__inner {
+    .search2 input.el-input__inner:hover {
+        /* width: 90%; */
+        border-color: #4F6E9D;
+        border-radius: 25px;
+    }
+
+    .search3 input.el-input__inner:focus {
+        /* width: 90%; */
+        border-color: #4F6E9D;
         border-radius: 25px;
     }
 
@@ -253,7 +289,7 @@
         background-color: #F2F6FC;
         height: 220px;
         text-align: center;
-	}
+    }
 
     .footer .logo {
         margin-top: 30px;
@@ -280,9 +316,9 @@
         margin-right: 10px;
     }
 
-	.footer .contact {
-		color: #303133;
-	}
+    .footer .contact {
+        color: #303133;
+    }
 
     .footer .right {
         display: flex;
