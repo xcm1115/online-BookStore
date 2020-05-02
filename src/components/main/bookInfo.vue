@@ -74,20 +74,32 @@
             addToCart(e) {
                 var address = "https://www.xiaoqw.online/smallFrog-bookstore/server/addToCart.php";
 
-                axios.post(address, {
-                    user_ID: this.$cookies.get('user_ID'),
-                    book_ID: e.ID,
-                    book_Img: e.img,
-                    book_Name: e.Name,
-                    unit_Price: e.Price,
-                    count: this.num
-                }).then(res => {
-                    console.log("success");
-                    this.$message({
-                        type: 'success',
-                        message: '成功加入购物车！'
+                if (this.$cookies.get('status') == 'logined') {
+                    axios.post(address, {
+                        user_ID: this.$cookies.get('user_ID'),
+                        book_ID: e.ID,
+                        book_Img: e.img,
+                        book_Name: e.Name,
+                        unit_Price: e.Price,
+                        count: this.num
+                    }).then(res => {
+                        console.log("success");
+                        this.$message({
+                            type: 'success',
+                            message: '成功加入购物车！'
+                        });
                     });
-                });
+                } else {
+                    this.$confirm('您尚未登录！', 'smallFrog', {
+                        confirmButtonText: '去登陆',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$router.push({
+                            path: '/login'
+                        })
+                    });
+                }
             },
             setCart() {
                 this.cart[0]['user_ID'] = this.$cookies.get('user_ID');
@@ -98,14 +110,26 @@
                 this.cart[0]['count'] = this.num;
             },
             toSettle() {
-                this.setCart();
+                if (this.$cookies.get('status') == 'logined') {
+                    this.setCart();
                 
-                this.$router.push({
-                    path: "/shopping/settle",
-                    query: {
-                        cart: this.cart
-                    }
-                });
+                    this.$router.push({
+                        path: "/shopping/settle",
+                        query: {
+                            cart: this.cart
+                        }
+                    });
+                } else {
+                    this.$confirm('您尚未登录！', 'smallFrog', {
+                        confirmButtonText: '去登陆',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$router.push({
+                            path: '/login'
+                        })
+                    });
+                }   
             }
         }
     }

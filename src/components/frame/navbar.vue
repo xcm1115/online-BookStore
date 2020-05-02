@@ -58,7 +58,7 @@
             </transition>
         </el-main>
 
-        <footer class="footer" v-show="$route.name!=='login' && $route.name!=='register'">
+        <el-footer class="footer" height="220px" v-show="$route.name!=='login' && $route.name!=='register'">
             <el-row>
                 <el-col :span="10" style="text-align: center;">
                     <div class="logo">
@@ -95,7 +95,7 @@
                     <el-link href="http://www.beian.miit.gov.cn">桂ICP备20001659号</el-link>
                 </el-col>
             </el-row>
-        </footer>
+        </el-footer>
     </el-container>
 </template>
 
@@ -287,7 +287,6 @@
 
     .footer {
         background-color: #F2F6FC;
-        height: 220px;
         text-align: center;
     }
 

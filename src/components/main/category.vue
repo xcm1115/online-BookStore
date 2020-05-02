@@ -19,7 +19,7 @@
         </el-header> -->
         
         <el-container>
-            <el-aside width="150px">
+            <el-aside width="250px">
                 <el-card class="leftNav">
                     <img src="../../../static/cateNav.png" class="leftImg" />
                     <div class="navItem" :class="index == showCategoryIndex ? 'cur' : ''" v-for="(item, index) in navItems" :key="index" @click="showCategory(index)">{{ item }}</div>
@@ -255,14 +255,14 @@
         height: 400px;
         margin-left: 30px;
         margin-right: 30px;
-        float: right;
+        display: inline-block;
         position: relative;
     }
 
     .row .img {
         width: 100%;
         height: 200px;
-        display: block;
+        /* display: block; */
         cursor: pointer;
         transition: all 0.6s;
     }
